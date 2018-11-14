@@ -9,10 +9,11 @@ const TOKEN_PATH = path.resolve('credentials.json');
 const authorization = () => {
     return new Promise((resolve, reject) => {
         // Load client secrets from a local file.
+
         fs.readFile(path.resolve('client_secret.json'), (err, content) => {
             if (err) return console.log('Error loading client secret file:', err);
             // Authorize a client with credentials, then call the Google Sheets API.
-            authorize(JSON.parse(content), auth => resolve(auth), reject);
+            authorize(auth => resolve(auth), reject);
         });
     });
 };
@@ -23,11 +24,13 @@ const authorization = () => {
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-const authorize = (credentials, callback) => {
-    const {client_secret, client_id, redirect_uris} = credentials.installed;
-    const oAuth2Client = new google.auth.OAuth2(
-        client_id, client_secret, redirect_uris[0]);
+const authorize = (callback) => {
 
+    const client_secret = process.env.GOOGLE_API_CLIENT_SECRET;
+    const client_id = process.env.GOOGLE_API_CLIENT_ID;
+    const redirect_uri = process.env.GOOGLE_API_REDIRECT_URI;
+
+    const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uri);
     // Check if we have previously stored a token.
     fs.readFile(TOKEN_PATH, (err, token) => {
         if (err) return getNewToken(oAuth2Client, callback);
