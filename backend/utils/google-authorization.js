@@ -8,7 +8,7 @@ const TOKEN_PATH = path.resolve('credentials.json');
 
 const authorization = () => {
   return new Promise((resolve, reject) =>
-    authorize(auth => resolve(auth), reject));
+    authorize(auth => resolve(auth)));
 };
 
 /**
