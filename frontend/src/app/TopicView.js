@@ -22,8 +22,14 @@ const TopicView = ({ topicData, topic, employee }) => (
       </AppBar>
     </Grid>
     <Grid item xs={12}>
-      {topicData.reverse().map(section => (
-        <Grid item key={section.sectionTitle}>
+      {topicData.length === 0 &&
+      <Grid container justify={'center'} alignItems={'center'}>
+        <Grid item style={{ height: '100%' }}>
+          אין נתונים
+        </Grid>
+      </Grid>}
+      {topicData.reverse().map(section => {
+        return section && <Grid item key={section.sectionTitle}>
           <Card>
             <CardContent>
               <Grid container spacing={24}>
@@ -39,12 +45,13 @@ const TopicView = ({ topicData, topic, employee }) => (
                     </Grid>
                   ))
                 }
+
               </Grid>
             </CardContent>
           </Card>
           <hr />
-        </Grid>
-      ))}
+        </Grid>;
+      })}
     </Grid>
   </Grid>
 );
