@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf dist/*",
     "build": "webpack --mode production --env production",
-    "start": "webpack-dev-server --hot --mode development --env development --devtool inline-source-map --open"
+    "start": "webpack-dev-server -d --mode development --env development  --open"
   },
   "babel": {
     "presets": [
