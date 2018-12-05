@@ -21,8 +21,11 @@ app.use(cors({
     return cb(new Error('Not allowed by CORS'));
   },
 }));
-
+§
 app.use('/api', tokenToUserMW, api);
+app.get('/health_check', (req, res) => {
+  res.status(200).json({ health: 'OK' });
+});
 
 process.on('unhandledRejection', (reason, p) => {
   console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
