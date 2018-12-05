@@ -4,8 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const plugins = [
   new HtmlWebpackPlugin({
-    template: path.resolve('./public/index.html'),
-    title: 'BaBaBa',
+    template: path.resolve('public/index.html'),
   }),
   new webpack.NoEmitOnErrorsPlugin(),
   new webpack.NamedModulesPlugin(),
@@ -14,14 +13,6 @@ const plugins = [
 
 const tree = {
   devtool: 'source-map',
-  devServer: {
-    hot: true,
-    port: 8080,
-    contentBase: ['./public/', './src/'],
-    publicPath: '/assets/',
-    inline: true,
-    historyApiFallback: true,
-  },
   entry: [
     'babel-polyfill',
     'webpack/hot/only-dev-server',
@@ -32,6 +23,12 @@ const tree = {
     path: path.resolve('./dist'),
     publicPath: './assets/',
     filename: 'app.js',
+  },
+  devServer: {
+    hot: true,
+    port: 8080,
+    contentBase: path.resolve('dist'),
+    publicPath: path.resolve('dist'),
   },
 };
 
