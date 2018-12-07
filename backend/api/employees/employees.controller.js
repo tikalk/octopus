@@ -14,8 +14,8 @@ const getEmployees = async (req, res) => {
     const { groupIndex, displayNameIndex, identifiersIndex } = topic;
     const data = employeesData.reduce((acc, employeeArr) => {
       const obj = {
-        group: employeeArr[groupIndex],
-        name: employeeArr[displayNameIndex],
+        group: employeeArr[groupIndex] || '',
+        name: employeeArr[displayNameIndex] || '',
         identifiers: identifiersIndex.map(index => employeeArr[index]),
       };
       if (obj.group.toLowerCase() === group.toLowerCase() || group === ALL) {
