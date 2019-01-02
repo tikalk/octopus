@@ -1,8 +1,15 @@
 import React from 'react';
+import {
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  AppBar,
+  Toolbar,
+  CircularProgress,
+} from '@material-ui/core';
 
-import { Grid, Card, CardContent, Typography, AppBar, Toolbar } from '@material-ui/core';
-
-const TopicView = ({ topicData, topic, employee }) => (
+const TopicView = ({ topicData, topic, employee, loader }) => (
   <Grid container spacing={24}>
     <Grid topic xs={12}>
       <AppBar position="static" color="default">
@@ -28,7 +35,13 @@ const TopicView = ({ topicData, topic, employee }) => (
           אין נתונים
         </Grid>
       </Grid>}
-      {topicData.reverse().map(section => {
+      {loader &&
+      <Grid container alignItems={'center'} direction={'column'} justify={'space-between'}>
+        <Grid item>
+          <CircularProgress size={100} thickness={5} />
+        </Grid>
+      </Grid>}
+      {!loader && topicData.reverse().map(section => {
         return section && <Grid item key={section.sectionTitle}>
           <Card>
             <CardContent>
@@ -45,7 +58,6 @@ const TopicView = ({ topicData, topic, employee }) => (
                     </Grid>
                   ))
                 }
-
               </Grid>
             </CardContent>
           </Card>

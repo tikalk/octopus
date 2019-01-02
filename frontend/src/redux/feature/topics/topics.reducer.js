@@ -6,6 +6,7 @@ export const INIT_STATE = {
   topics: [],
   loadTopicsError: false,
   loadTopicsDataError: false,
+  selectedTopic: {},
   topicData: '',
 };
 
@@ -14,6 +15,9 @@ export default (state = INIT_STATE, action) => {
 
     case `${TOPICS} ${AT.SET_TOPICS}`:
       return { ...state, topics: action.payload, loadTopicsError: false };
+
+    case `${TOPICS} ${AT.SET_SELECTED_TOPIC}`:
+      return { ...state, selectedTopic: action.payload };
 
     case `${TOPICS} ${AT.SET_LOAD_TOPICS_ERROR}`:
       return { ...state, loadTopicsDataError: true };

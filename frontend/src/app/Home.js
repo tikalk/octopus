@@ -8,8 +8,9 @@ import EmployeesList from './EmployeesList/index';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import { getEmployees } from '../redux/feature/employees/employees.actions';
-import { getTopicData, getTopics } from '../redux/feature/topics/topics.actions';
+import { getTopics } from '../redux/feature/topics/topics.actions';
 import TopicView from './TopicView';
+import { setLoader } from '../redux/feature/loaders/loaders.actions';
 
 const styles = theme => ({
   root: {
@@ -35,36 +36,23 @@ const styles = theme => ({
 });
 
 class Home extends React.Component {
-  state = {
-    groupName: null,
-    selectedTopic: {},
-    selectedEmployee: {},
-  };
 
   componentDidMount() {
-    const { getEmployees, getTopics } = this.props;
+    const { getEmployees, getTopics, setLoader } = this.props;
+    setLoader({ name: 'employees', state: true });
     getEmployees({});
     getTopics({});
   }
 
   handleTopicClick = ({ topic, employee }) => {
-    const { getTopicData } = this.props;
-    const { identifiers } = employee;
-    const { id: topicId } = topic;
-    this.setState({
-      selectedTopic: { ...topic },
-      selectedEmployee: employee,
-    });
-    if (identifiers) {
-
-      getTopicData({ topicId, identifiers });
-    }
+    const { topicSelected, employeeSelected } = this.props;
+    topicSelected({ topic, employee });
+    employeeSelected(employee);
   };
 
   render() {
     const { classes } = this.props;
-    const { employees, topics, topicData } = this.props;
-    const { selectedTopic, selectedEmployee } = this.state;
+    const { topicData, selectedTopic, selectedEmployee, topicLoader } = this.props;
     return <div>
       <Header />
 
@@ -74,16 +62,15 @@ class Home extends React.Component {
           style={{ borderLeft: '1px solid #ECECEC' }}
           classes={{ paper: classes.drawerPaper }}
         >
-          <EmployeesList
-            employees={employees}
-            topics={topics}
-            onTopicClick={this.handleTopicClick}
-          />
+          <EmployeesList />
         </Drawer>
 
         <main className={classes.content}>
           {topicData &&
-          <TopicView topic={selectedTopic} employee={selectedEmployee} topicData={topicData} />}
+          <TopicView
+            topic={selectedTopic} employee={selectedEmployee} topicData={topicData}
+            loader={topicLoader}
+          />}
         </main>
       </div>
 
@@ -92,14 +79,15 @@ class Home extends React.Component {
   };
 }
 
-const mapStateToProps = ({ employees: employeesStore, topics: topicsStore }) => {
-  const { employees } = employeesStore;
-  const { topics, topicData } = topicsStore;
-  return { employees, topics, topicData };
+const mapStateToProps = ({ employees: employeesStore, topics: topicsStore, loaders }) => {
+  const { selectedEmployee } = employeesStore;
+  const { topicData, selectedTopic } = topicsStore;
+  const { topic: topicLoader } = loaders;
+  return { topicData, selectedTopic, selectedEmployee, topicLoader };
 };
 
 export default connect(mapStateToProps, {
   getEmployees,
   getTopics,
-  getTopicData,
+  setLoader,
 })(withStyles(styles)(Home));

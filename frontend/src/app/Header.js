@@ -1,22 +1,22 @@
 import React from 'react';
-import { withStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { withStyles } from '@material-ui/core/styles';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 const styles = {
   toolbar: {
     backgroundColor: '#fe885f',
-    direction: 'rtl'
+    direction: 'rtl',
   },
   font: {
     color: '#ffffff',
-  }
+  },
 };
 
 const Header = () => (
   <AppBar position="static">
     <Toolbar style={styles.toolbar}>
       <Typography variant="title" color="inherit" style={styles.font}>
-         Octopus - All about Tikal
+        Octopus - All about Tikal
       </Typography>
     </Toolbar>
   </AppBar>
