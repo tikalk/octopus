@@ -1,5 +1,5 @@
 pipeline {
-  agent {
+    agent {
       label 'tci-jnlp-node'
   }
   options {
@@ -15,6 +15,7 @@ pipeline {
         IMAGE_LATEST     = "${PROJECT}:latest"
     }
   stages {
+
     stage('Build preparations')
         {
             steps
@@ -33,7 +34,8 @@ pipeline {
                 }
             }
         }
-    stage('Build') {
+
+        stage('Build') {
       steps {
           script {
               dir("frontend") {
@@ -59,18 +61,21 @@ pipeline {
       }
     }
     stage('Publish (any)') {
-      when {
-        not branch 'master'
-      }
-      steps {
-          script {
-              withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-                  // version eq latest git tag
-                  docker.image(IMAGE).push()
-              }
-          }
-      }
+        when {
+           not {
+               branch 'master'
+            }
+        }
+        steps {
+            script {
+                withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
+                    // version eq latest git tag
+                    docker.image(IMAGE).push()
+                }
+            }
+        }
     }
+
     stage('Deploy (master)') {
       when {
         branch 'master'
@@ -81,13 +86,15 @@ pipeline {
           echo "docker-compose up -d"
           popd
           '''
-          }
-      }
-    
+        }
+    }
+
     stage('Deploy (any)') {
       when {
-        not branch 'master'
-      }
+           not {
+               branch 'master'
+            }
+        }
       steps {
           sh'''
           pushd ${WORKSPACE}/frontend
@@ -98,7 +105,8 @@ pipeline {
           }
       }
     }
-    post
+  
+  post
     {
         success{ slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})") }
         failure{ slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})") }
@@ -110,4 +118,4 @@ pipeline {
             '''
         }
     }
-}
+    }

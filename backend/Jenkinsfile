@@ -58,7 +58,7 @@ pipeline
             }
         }
         stage('Publish (any)'){
-            when not{ branch 'master' }
+            when {not{ branch 'master' }}
             steps{
                 script{
                     withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
@@ -79,7 +79,7 @@ pipeline
             }
         }
         stage('Deploy (any)'){
-        when not{ branch 'master' }
+        when { not { branch 'master' } }
             steps{
                 sh'''
                 pushd ${WORKSPACE}/backend
