@@ -9,9 +9,10 @@ pipeline {
   }
   environment
     {
-        VERSION   = 'latest'
-        PROJECT   = 'tikalk/octopus-fe'
-        IMAGE     = "${PROJECT}/${VERSION}:latest"
+        VERSION          = 'latest'
+        PROJECT          = 'tikalk/octopus-fe'
+        IMAGE            = "${PROJECT}/${VERSION}"
+        IMAGE_LATEST     = "${PROJECT}:latest"
     }
   stages {
     stage('Build preparations')
@@ -82,7 +83,7 @@ pipeline {
           '''
           }
       }
-    }
+    
     stage('Deploy (any)') {
       when {
         not branch 'master'
@@ -97,22 +98,16 @@ pipeline {
           }
       }
     }
-  }
-  post
+    post
     {
-        success
-        {
-          slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-        }
-        failure
-        {
-          slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-        }
-        always
-        {
+        success{ slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})") }
+        failure{ slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})") }
+        always {
             // make sure that the temp Docker images is removed
-            sh "docker rmi $IMAGE | true"
-            sh "docker rmi $IMAGE_LATEST | true"
+            sh'''
+            docker rmi $IMAGE | true
+            docker rmi $IMAGE_LATEST | true
+            '''
         }
     }
 }
