@@ -12,10 +12,10 @@ pipeline
     }
     environment
     {
-        VERSION   = 'latest'
-        PROJECT   = 'tikalk/octopus'
-        IMAGE     = "${PROJECT}/${VERSION}:latest"
-        IMAGE_LATEST = "$PROJECT:latest"
+        VERSION          = 'latest'
+        PROJECT          = 'tikalk/octopus'
+        IMAGE            = "${PROJECT}/${VERSION}"
+        IMAGE_LATEST     = "${PROJECT}:latest"
 
     }
     stages{
