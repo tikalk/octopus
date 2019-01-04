@@ -50,10 +50,24 @@ export const setLoadDataError = (state) => {
   };
 };
 
+export const setSelectedTopic = (topic) => {
+  return {
+    type: `${TOPICS} ${AT.SET_SELECTED_TOPIC}`,
+    payload: topic,
+  };
+};
+
 export const setLoadTopicsError = (state) => {
   return {
     type: `${TOPICS} ${AT.SET_LOAD_TOPICS_ERROR}`,
     payload: state,
+  };
+};
+
+export const topicSelected = ({ topic, employee }) => {
+  return {
+    type: `${TOPICS} ${AT.TOPIC_SELECTED}`,
+    payload: { topic, employee },
   };
 };
 

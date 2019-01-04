@@ -16,6 +16,20 @@ export const getEmployees = ({ force = false }) => {
   };
 };
 
+export const employeeSelected = (employee) => {
+  return {
+    type: `${EMPLOYEES} ${AT.EMPLOYEE_SELECTED}`,
+    payload: employee,
+  };
+};
+
+export const setSelectedEmployee = (employee) => {
+  return {
+    type: `${EMPLOYEES} ${AT.SET_SELECTED_EMPLOYEE}`,
+    payload: employee,
+  };
+};
+
 export const setEmployees = (employees) => {
   return {
     type: `${EMPLOYEES} ${AT.SET_EMPLOYEES}`,

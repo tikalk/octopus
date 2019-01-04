@@ -57,7 +57,7 @@ export const apiMiddleware = ({ dispatch, getState }) => (next) => async (action
         const error = { ...err.response, message: get(err, 'response.data.message') || 'Error' };
         const errorArr = [];
 
-        if (error.status === 401 && store.get('token')) {
+        if (error.status === 401) {
           errorArr.push(userLogOut({ state: true }));
         } else {
           apiError({ error, feature, sourceAction, meta: action.meta });

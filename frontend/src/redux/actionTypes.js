@@ -22,6 +22,9 @@ export const TOPICS = '[TOPICS]';
 export const GET_TOPICS = apiAction('GET_TOPICS');
 export const SET_TOPICS = 'SET_TOPICS';
 export const SET_LOAD_TOPICS_ERROR = 'SET_LOAD_TOPICS_ERROR';
+export const SET_SELECTED_TOPIC = 'SET_SELECTED_TOPIC';
+
+export const TOPIC_SELECTED = 'TOPIC_SELECTED';
 
 export const GET_TOPIC_DATA = apiAction('GET_TOPIC_DATA');
 export const SET_TOPIC_DATA = 'SET_TOPIC_DATA';
@@ -31,7 +34,11 @@ export const SET_LOAD_TOPIC_DATA_ERROR = 'SET_LOAD_TOPIC_DATA_ERROR';
 export const EMPLOYEES = '[EMPLOYEES]';
 export const GET_EMPLOYEES = apiAction('GET_EMPLOYEES');
 export const SET_EMPLOYEES = 'SET_EMPLOYEES';
+export const EMPLOYEE_SELECTED = 'EMPLOYEE_SELECTED';
+export const SET_SELECTED_EMPLOYEE = 'SET_SELECTED_EMPLOYEE';
 
+//LOADERS
+export const LOADERS = '[LOADERS]';
 export const SET_LOADER = 'SET_LOADER';
 
 
