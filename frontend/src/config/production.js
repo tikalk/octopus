@@ -1,6 +1,6 @@
 const PRODUCTION = {
-  clientURL: 'http://octopus.tikal.io',
-  serverURL: 'http://octopus-be.tikal.io:3333',
+  clientURL: 'https://octopus.tikal.io',
+  serverURL: 'https://octopus-be.tikal.io',
 };
 
 export default PRODUCTION;

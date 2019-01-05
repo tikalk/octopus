@@ -1,0 +1,26 @@
+version: '2'
+
+networks:
+ tci_tciserver:
+    external: true
+
+services:
+  octopus-be:
+    build: .
+    image: tikal/octopus-be:latest
+    expose:
+      - 3333
+    ports:
+      - 3333:3333
+    environment:
+      GOOGLE_API_CLIENT_SECRET: '6UKzxl5nD-qgh3N57tczGZZJ'
+      GOOGLE_API_CLIENT_ID: '585213953123-p73u3gjppb4p1jjmrnfahhb6iqjgbk3n.apps.googleusercontent.com'
+      GOOGLE_API_REDIRECT_URI: 'urn:ietf:wg:oauth:2.0:oob'
+    labels:
+      traefik.enable: "true"
+      traefik.port: "3333"
+      traefik.frontend.passHostHeader: "true"
+      traefik.frontend.rule: "Host:octopus-be.tikal.io"
+    networks:
+      - tci_tciserver
+    restart: always

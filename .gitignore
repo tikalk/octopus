@@ -63,3 +63,5 @@ typings/
 client_secret.json
 
 .idea
+
+frontend/dist

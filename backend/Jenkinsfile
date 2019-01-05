@@ -1,0 +1,107 @@
+pipeline 
+{
+    agent 
+    {
+        label 'tci-jnlp-node'
+    }
+    options 
+    {
+        ansiColor('xterm')
+        timestamps()
+        buildDiscarder(logRotator(numToKeepStr: '15'))
+    }
+    environment
+    {
+        VERSION          = 'latest'
+        PROJECT          = 'tikal/octopus-be'
+        IMAGE            = "${PROJECT}/${VERSION}"
+        IMAGE_LATEST     = "${PROJECT}:latest"
+
+    }
+    stages{
+        stage('Build preparations'){
+            steps{
+                script{
+                // calculate GIT lastest commit short-hash
+                gitCommitHash = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+                shortCommitHash = gitCommitHash.take(7)
+                // calculate a sample version tag
+                VERSION = shortCommitHash
+                // set the build display name
+                currentBuild.displayName = "#${BUILD_ID}-${VERSION}"
+                IMAGE = "$PROJECT:$VERSION"
+                // IMAGE_LATEST = "$PROJECT:latest"
+                }
+            }
+        }
+        stage('Build'){
+            steps{
+                script {
+                    dir("backend") {
+                        docker.build("$IMAGE")
+                        docker.build("$IMAGE_LATEST")
+                    }
+                }
+            }
+        }
+        stage('Publish (master)'){
+            when{ branch 'master' }
+            steps{
+                script{
+                    withDockerRegistry([ credentialsId: "dockerHub", url: "" ]){
+                    // version eq latest git tag
+                    docker.image(IMAGE).push()
+                    // override the latest tag
+                    docker.image(IMAGE_LATEST).push()
+                    }
+                }
+            }
+        }
+        stage('Publish (any)'){
+            when {not{ branch 'master' }}
+            steps{
+                script{
+                    withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
+                    // version eq latest git tag
+                    docker.image(IMAGE).push()
+                    }
+                }
+            }
+        }
+        stage('Deploy (master)'){
+            when { branch 'master' }
+            steps{
+                dir("backend") {
+                    sh'''
+                    docker-compose up -d
+                    '''
+                }
+            }
+        }
+        stage('Deploy (any)'){
+        when { not { branch 'master' } }
+            steps{
+                dir("backend") {
+                sh'''
+                docker-compose up -d
+                '''
+                }
+            }
+        }
+    }
+    post{
+        success{
+            // # slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            echo "SUCCESS"
+        }
+        failure{
+            //# slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            echo "FAILED"
+        }
+        always{
+            // make sure that the temp Docker images is removed
+            sh "docker rmi $IMAGE | true"
+            sh "docker rmi $IMAGE_LATEST | true"
+        }
+    }
+}
