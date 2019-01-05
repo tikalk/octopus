@@ -80,13 +80,13 @@ pipeline {
       when {
         branch 'master'
       }
-      steps {
-          sh'''
-          pushd ${WORKSPACE}/frontend
-          echo "docker-compose up -d"
-          popd
-          '''
+      steps{
+        dir("frontend") {
+            sh'''
+            docker-compose up -d
+            '''
         }
+      }
     }
 
     stage('Deploy (any)') {
@@ -95,27 +95,29 @@ pipeline {
                branch 'master'
             }
         }
-      steps {
-          sh'''
-          pushd ${WORKSPACE}/frontend
-          docker-compose down
-          echo "docker-compose up -d"
-          popd
-          '''
-          }
+      steps{
+        dir("frontend") {
+            sh'''
+            docker-compose up -d
+            '''
+            }
+        }
       }
     }
   
-  post
-    {
-        success{ slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})") }
-        failure{ slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})") }
-        always {
+    post{
+        success{
+            // # slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            echo "SUCCESS"
+        }
+        failure{
+            //# slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            echo "FAILED"
+        }
+        always{
             // make sure that the temp Docker images is removed
-            sh'''
-            docker rmi $IMAGE | true
-            docker rmi $IMAGE_LATEST | true
-            '''
+            sh "docker rmi $IMAGE | true"
+            sh "docker rmi $IMAGE_LATEST | true"
         }
     }
-    }
+}
