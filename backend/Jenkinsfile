@@ -71,22 +71,21 @@ pipeline
         stage('Deploy (master)'){
             when { branch 'master' }
             steps{
-                sh'''
-                pushd ${WORKSPACE}/backend
-                echo "docker-compose up -d"
-                popd
-                '''
+                dir("backend") {
+                    sh'''
+                    docker-compose up -d
+                    '''
+                }
             }
         }
         stage('Deploy (any)'){
         when { not { branch 'master' } }
             steps{
+                dir("backend") {
                 sh'''
-                pushd ${WORKSPACE}/backend
-                docker-compose down
-                echo "docker-compose up -d"
-                popd
+                docker-compose up -d
                 '''
+                }
             }
         }
     }
