@@ -10,7 +10,7 @@ pipeline {
   environment
     {
         VERSION          = 'latest'
-        PROJECT          = 'tikalk/octopus-fe'
+        PROJECT          = 'tikal/octopus-fe'
         IMAGE            = "${PROJECT}/${VERSION}"
         IMAGE_LATEST     = "${PROJECT}:latest"
     }

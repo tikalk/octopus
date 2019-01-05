@@ -1,4 +1,9 @@
 version: '2'
+
+networks:
+ tci_tciserver:
+    external: true
+
 services:
   octopus-be:
     build: .
@@ -16,4 +21,6 @@ services:
       traefik.port: "3333"
       traefik.frontend.passHostHeader: "true"
       traefik.frontend.rule: "Host:octopus-be.tikal.io"
+    networks:
+      - tci_tciserver
     restart: always

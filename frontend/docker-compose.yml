@@ -1,8 +1,14 @@
 version: '2'
+networks:
+ tci_tciserver:
+    external: true
+
 services:
-  octopus-be:
+  octopus-fe:
     build: .
     image: tikal/octopus-fe:latest
+    expose:
+      - 82
     ports:
       - 82:80
     labels:
@@ -10,4 +16,6 @@ services:
       traefik.port: "80"
       traefik.frontend.passHostHeader: "true"
       traefik.frontend.rule: "Host:octopus.tikal.io"
+    networks:
+      - tci_tciserver
     restart: always
