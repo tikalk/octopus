@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { groupBy } from 'lodash';
 import EmployeesListSection from './EmployeesListSection';
-import { CircularProgress, TextField, List, Divider } from '@material-ui/core';
+import { CircularProgress, TextField, List, Divider, IconButton } from '@material-ui/core';
+import { Refresh as RefreshIcon } from '@material-ui/icons';
 import { connect } from 'react-redux';
+import { getEmployees } from '../../redux/feature/employees/employees.actions';
+import { setLoader } from '../../redux/feature/loaders/loaders.actions';
 
 class EmployeesList extends Component {
   state = { search: '' };
@@ -24,6 +27,12 @@ class EmployeesList extends Component {
     ));
   }
 
+  onRefreshButtonClick = () => {
+    const { setLoader, getEmployees } = this.props;
+    getEmployees({ force: true });
+    setLoader({ name: 'employees', state: true });
+  };
+
   render() {
     const { employees, loader } = this.props;
     return (
@@ -36,6 +45,9 @@ class EmployeesList extends Component {
             onChange={this.handleChange}
             style={{ margin: '0 30px 10px', paddingBottom: '16px' }}
           />
+          <IconButton aria-label="Refresh List" onClick={this.onRefreshButtonClick}>
+            <RefreshIcon />
+          </IconButton>
           <Divider />
           {this.renderEmployeesDetails(employees)}
         </List>}
@@ -52,4 +64,4 @@ const mapStateToProps = ({ employees: employeesStore, loaders }) => {
   return { employees, loader };
 };
 
-export default connect(mapStateToProps, {})(EmployeesList);
+export default connect(mapStateToProps, { getEmployees, setLoader })(EmployeesList);

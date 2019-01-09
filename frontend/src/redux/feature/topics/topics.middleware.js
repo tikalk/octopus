@@ -32,6 +32,21 @@ export const topicsMiddleware = ({ dispatch, getState }) => (next) => (action) =
       dispatch(arr);
     }
       break;
+
+    case action.type.includes(`${TOPICS} ${AT.REFRESH_TOPIC_CLICKED}`): {
+      const {
+        employees: { selectedEmployee: { identifiers } },
+        topics: { selectedTopic: { id: topicId } },
+      } = getState();
+      const force = true;
+
+      dispatch([
+        setLoader({ name: 'topic', state: true }),
+        getTopicData({ topicId, identifiers, force }),
+      ]);
+    }
+      break;
+
     case action.type.includes(`${TOPICS} ${AT.GET_TOPICS.SUCCESS}`): {
       const { data } = action.payload;
       dispatch(setTopics(data));

@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, IconButton, Toolbar, Typography, Grid } from '@material-ui/core';
+import { ExitToApp as LogoutIcon } from '@material-ui/icons';
 
 const styles = {
   toolbar: {
@@ -12,12 +13,23 @@ const styles = {
   },
 };
 
-const Header = () => (
+const Header = ({ onLogoutClick }) => (
   <AppBar position="static">
     <Toolbar style={styles.toolbar}>
-      <Typography variant="title" color="inherit" style={styles.font}>
-        Octopus - All about Tikal
-      </Typography>
+
+      <Grid container justify={'space-between'} alignItems={'center'}>
+        <Grid item>
+          <Typography variant="title" color="inherit" style={styles.font}>
+            Octopus - All about Tikal
+          </Typography>
+        </Grid>
+        <Grid item>
+          <IconButton aria-label="Refresh List" onClick={onLogoutClick}>
+            <LogoutIcon />
+          </IconButton>
+        </Grid>
+      </Grid>
+
     </Toolbar>
   </AppBar>
 );

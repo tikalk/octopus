@@ -23,7 +23,7 @@ export const setTopics = (topics) => {
   };
 };
 
-export const getTopicData = ({ topicId, identifiers }) => {
+export const getTopicData = ({ topicId, identifiers, force }) => {
   return {
     type: `${TOPICS} ${AT.GET_TOPIC_DATA.API_REQUEST}`,
     payload: { identifiers },
@@ -32,6 +32,7 @@ export const getTopicData = ({ topicId, identifiers }) => {
       sourceAction: AT.GET_TOPIC_DATA,
       url: `api/topics/${topicId}`,
       method: 'GET',
+      force,
     },
   };
 };
@@ -68,6 +69,13 @@ export const topicSelected = ({ topic, employee }) => {
   return {
     type: `${TOPICS} ${AT.TOPIC_SELECTED}`,
     payload: { topic, employee },
+  };
+};
+
+export const refreshTopicClick = () => {
+  return {
+    type: `${TOPICS} ${AT.REFRESH_TOPIC_CLICKED}`,
+    payload: {},
   };
 };
 

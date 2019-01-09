@@ -6,15 +6,16 @@ import {
   Typography,
   AppBar,
   Toolbar,
-  CircularProgress,
+  CircularProgress, IconButton,
 } from '@material-ui/core';
+import { Refresh as RefreshIcon } from '@material-ui/icons';
 
-const TopicView = ({ topicData, topic, employee, loader }) => (
+const TopicView = ({ topicData, topic, employee, loader, onRefreshButtonClick }) => (
   <Grid container spacing={24}>
     <Grid topic xs={12}>
       <AppBar position="static" color="default">
         <Toolbar>
-          <Grid container justify={'space-between'}>
+          <Grid container justify={'space-between'} alignItems={'center'}>
             <Grid item>
               <Typography variant="headline" component="h2">{topic.title}</Typography>
             </Grid>
@@ -23,7 +24,11 @@ const TopicView = ({ topicData, topic, employee, loader }) => (
                 variant="subheading" component="h6"
               >{employee.name}</Typography>
             </Grid>
-
+            <Grid item>
+              <IconButton aria-label="Refresh List" onClick={onRefreshButtonClick}>
+                <RefreshIcon />
+              </IconButton>
+            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
@@ -31,7 +36,7 @@ const TopicView = ({ topicData, topic, employee, loader }) => (
     <Grid item xs={12}>
       {topicData.length === 0 &&
       <Grid container justify={'center'} alignItems={'center'}>
-        <Grid item style={{ height: '100%' }}>
+        <Grid item>
           אין נתונים
         </Grid>
       </Grid>}

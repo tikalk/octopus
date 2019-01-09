@@ -8,9 +8,10 @@ import EmployeesList from './EmployeesList/index';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import { getEmployees } from '../redux/feature/employees/employees.actions';
-import { getTopics } from '../redux/feature/topics/topics.actions';
+import { getTopics, refreshTopicClick } from '../redux/feature/topics/topics.actions';
 import TopicView from './TopicView';
 import { setLoader } from '../redux/feature/loaders/loaders.actions';
+import { userLogOut } from '../redux/feature/auth/auth.actions';
 
 const styles = theme => ({
   root: {
@@ -44,17 +45,15 @@ class Home extends React.Component {
     getTopics({});
   }
 
-  handleTopicClick = ({ topic, employee }) => {
-    const { topicSelected, employeeSelected } = this.props;
-    topicSelected({ topic, employee });
-    employeeSelected(employee);
+  onLogoutClick = () => {
+    this.props.userLogOut();
   };
 
   render() {
     const { classes } = this.props;
-    const { topicData, selectedTopic, selectedEmployee, topicLoader } = this.props;
+    const { topicData, selectedTopic, selectedEmployee, topicLoader, refreshTopicClick } = this.props;
     return <div>
-      <Header />
+      <Header onLogoutClick={this.onLogoutClick} />
 
       <div className={classes.root}>
         <Drawer
@@ -68,8 +67,11 @@ class Home extends React.Component {
         <main className={classes.content}>
           {topicData &&
           <TopicView
-            topic={selectedTopic} employee={selectedEmployee} topicData={topicData}
+            topic={selectedTopic}
+            employee={selectedEmployee}
+            topicData={topicData}
             loader={topicLoader}
+            onRefreshButtonClick={refreshTopicClick}
           />}
         </main>
       </div>
@@ -90,4 +92,6 @@ export default connect(mapStateToProps, {
   getEmployees,
   getTopics,
   setLoader,
+  userLogOut,
+  refreshTopicClick,
 })(withStyles(styles)(Home));
