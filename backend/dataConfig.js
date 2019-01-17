@@ -1,3 +1,5 @@
+import { EMPLOYEE } from './constants';
+
 const { HR, LEADER, LIOR, SALES, FINANCE, ALL } = require('./constants');
 
 const employees = {
@@ -90,9 +92,10 @@ const topics = {
         ],
       },
     ],
+
   },
   roadmap: {
-    roles: [HR, LEADER, LIOR, SALES, ALL],
+    roles: [HR, LEADER, LIOR, SALES, ALL, EMPLOYEE],
     title: 'רואדמאפ',
     spreadsheetId: '1rGGQ2qH_Rsf3hc2axVQ0Q4tnRZmYB3ca_oC09qZdg2k',
     sheetId: 'Form Responses 1',

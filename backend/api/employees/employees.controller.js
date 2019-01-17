@@ -1,3 +1,5 @@
+import { EMPLOYEE } from '../../constants';
+
 const _ = require('lodash');
 
 const { getSheetData, formatPage } = require('./../../utils/spreadshit-data-fetcher');
@@ -6,7 +8,7 @@ const { ALL } = require('../../constants');
 const config = require('../../dataConfig');
 
 const getEmployees = async (req, res) => {
-  const { group } = req.auth;
+  const { group, role, email: userEmail } = req.auth;
   const topic = config.employees;
   try {
     const auth = await authorization();
@@ -18,7 +20,10 @@ const getEmployees = async (req, res) => {
         name: employeeArr[displayNameIndex] || '',
         identifiers: identifiersIndex.map(index => employeeArr[index]),
       };
-      if (obj.group.toLowerCase() === group.toLowerCase() || group === ALL) {
+      if (obj.group.toLowerCase() === group.toLowerCase() ||
+        group === ALL ||
+        (role === EMPLOYEE && obj.identifiers.find(userEmail))
+      ) {
         acc.push(obj);
       }
       return acc;
