@@ -37,7 +37,10 @@ const formatData = ({ sheetData, topic, userGroup, userRole }) => {
   const { fields, sectionTitle } = topic;
   return sheetData.map(row => {
     const formattedFields = fields.reduce((acc, field) => {
-      if (field.roles && !field.roles.includes(userRole)) return;
+      if (
+        field.roles && !field.roles.includes(userRole) ||
+        field.excludeRoles && field.excludeRoles.includes(userRole)
+      ) return;
       if (userGroup !== ALL && field.group && !field.group.includes(userGroup)) return;
 
       const { title, grid, index } = field;

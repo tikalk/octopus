@@ -8,7 +8,11 @@ const getTopics = async (req, res) => {
   const topicsToReturn = _.keys(topics).reduce((acc, topicId) => {
     const topic = _.get(topics, topicId);
     const { title } = topic;
-    if (topic.roles && !topic.roles.includes(userRole)) {
+    if (
+      topic.roles && !topic.roles.includes(userRole) ||
+      topic.excludeRoles && topic.excludeRoles.includes(userRole)
+
+    ) {
       return;
     }
     if (topic.group && !topic.groups.includes(userGroup)) {
