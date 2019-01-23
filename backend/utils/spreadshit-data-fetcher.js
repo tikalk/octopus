@@ -40,7 +40,7 @@ const formatData = ({ sheetData, topic, userGroup, userRole }) => {
       if (
         field.roles && !field.roles.includes(userRole) ||
         field.excludeRoles && field.excludeRoles.includes(userRole)
-      ) return;
+      ) return acc;
       if (userGroup !== ALL && field.group && !field.group.includes(userGroup)) return;
 
       const { title, grid, index } = field;
