@@ -73,6 +73,7 @@ const topics = {
             title: 'רמת ניסיון',
             index: 2,
             grid: 6,
+            excludeRoles: [EMPLOYEE],
           },
           {
             title: 'פרופיל טכני',
@@ -83,6 +84,7 @@ const topics = {
             title: 'רמה טכנית',
             index: 5,
             grid: 6,
+            excludeRoles: [EMPLOYEE],
           },
           {
             title: 'רואדמאפ אחרון',
@@ -170,21 +172,25 @@ const topics = {
         title: 'הערות',
         index: 19,
         grid: 12,
+        excludeRoles: [EMPLOYEE],
       },
       {
         title: 'שביעות רצון המוביל מהתקדמות מקצועית',
         index: 20,
         grid: 4,
+        excludeRoles: [EMPLOYEE],
       },
       {
         title: 'פירוט',
         index: 21,
         grid: 8,
+        excludeRoles: [EMPLOYEE],
       },
       {
         title: 'הערות לגבי התפתחות המקצועית של העובד',
         index: 21,
         grid: 12,
+        excludeRoles: [EMPLOYEE],
       },
     ],
   },
