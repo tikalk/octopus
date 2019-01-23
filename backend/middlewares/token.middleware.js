@@ -1,6 +1,8 @@
 const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
 
+const { EMPLOYEE } = require('./../constants');
+
 const _ = require('lodash');
 
 const { auth0: { domain } } = require('../serverConfig');
@@ -28,6 +30,7 @@ const tokenToUserMW = (req, res, next) => {
       email: _.get(req, 'user.email'),
     };
     req.auth = { ...auth, ...req.user['https://octopus.com/user_metadata'] };
+    req.auth.role = req.auth.role || EMPLOYEE;
     return next();
   });
 };

@@ -1,4 +1,4 @@
-import { EMPLOYEE } from '../../constants';
+const { EMPLOYEE } = require('../../constants');
 
 const _ = require('lodash');
 
@@ -22,7 +22,7 @@ const getEmployees = async (req, res) => {
       };
       if (obj.group.toLowerCase() === group.toLowerCase() ||
         group === ALL ||
-        (role === EMPLOYEE && obj.identifiers.find(userEmail))
+        (role === EMPLOYEE && obj.identifiers.find(identifier => identifier === userEmail))
       ) {
         acc.push(obj);
       }

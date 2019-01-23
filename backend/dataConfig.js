@@ -1,4 +1,4 @@
-import { EMPLOYEE } from './constants';
+const { EMPLOYEE } = require('./constants');
 
 const { HR, LEADER, LIOR, SALES, FINANCE, ALL } = require('./constants');
 

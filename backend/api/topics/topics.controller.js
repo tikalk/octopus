@@ -13,10 +13,10 @@ const getTopics = async (req, res) => {
       topic.excludeRoles && topic.excludeRoles.includes(userRole)
 
     ) {
-      return;
+      return acc;
     }
     if (topic.group && !topic.groups.includes(userGroup)) {
-      return;
+      return acc;
     }
     acc.push({ id: topicId, title });
     return acc;
