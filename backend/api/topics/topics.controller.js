@@ -34,7 +34,7 @@ const getTopicData = async (req, res) => {
     const auth = await authorization();
     const topic = topics[topicId];
     const sheetData = await getSheetData({ topic, auth, identifiers });
-    const data = formatData({ topic, sheetData, userGroup, userRole });
+    let data = formatData({ topic, sheetData, userGroup, userRole });
 
     if (topic.extend) {
       for (const eTopic of topic.extend) {
@@ -45,7 +45,7 @@ const getTopicData = async (req, res) => {
           userGroup,
           userRole,
         });
-        data.push(_.first(extendData));
+        data = [...data, ...extendData];
       }
     }
 

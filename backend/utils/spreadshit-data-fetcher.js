@@ -1,10 +1,11 @@
 const { google } = require('googleapis');
 const sheets = google.sheets('v4');
 const { ALL } = require('../constants');
+const _ = require('lodash');
 
 const _filterDataByEmployee = ({ topic, sheetData, identifiers }) =>
   sheetData.filter(row =>
-    identifiers.find(identifier => identifier === row[topic.employeeIdentifierIndex]));
+    identifiers.find(identifier => _.trim(identifier) === _.trim(row[topic.employeeIdentifierIndex])));
 
 const getSheetData = async ({ topic, auth, identifiers }) => {
   const { spreadsheetId, sheetId, range } = topic;
