@@ -21,9 +21,6 @@ const plugins = [
 const tree = {
   devtool: 'source-map',
   entry: [
-    'babel-polyfill',
-    'webpack/hot/only-dev-server',
-    'react-hot-loader/patch',
     path.resolve('./src/index.js'),
   ],
   output: {

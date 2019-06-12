@@ -1,21 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { eq } from 'lodash';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import EmployeeListItem from './EmployeeListItem';
 import { topicSelected } from '../../redux/feature/topics/topics.actions';
 import { employeeSelected } from '../../redux/feature/employees/employees.actions';
 
-class EmployeesListSection extends React.Component {
-  onSelectedTopic = (topic, employee) => {
-    this.props.topicSelected({ topic, employee });
+const EmployeesListSection = (props) => {
+
+  const { title, employees, search, topics, selectedEmployee, selectedTopic } = props;
+
+  const onSelectedTopic = (topic, employee) => {
+    props.topicSelected({ topic, employee });
   };
 
-  onExpand = (employee) => {
-    this.props.employeeSelected(employee);
+  const onExpand = (employee) => {
+    props.employeeSelected(employee);
   };
 
-  renderEmployees = ({ employees, search, selectedEmployee, topics, selectedTopic }) => (
+  const renderEmployees = ({ employees, search, selectedEmployee, topics, selectedTopic }) => (
     employees
       .filter(user => search == '' || user.name.includes(search))
       .map(employee => (
@@ -24,21 +26,18 @@ class EmployeesListSection extends React.Component {
           key={employee.name}
           isSelected={employee.name === selectedEmployee.name}
           topics={topics}
-          onSelectedTopic={this.onSelectedTopic}
+          onSelectedTopic={onSelectedTopic}
           selectedTopic={selectedTopic}
-          onExpand={this.onExpand}
+          onExpand={onExpand}
         />
       ))
   );
 
-  render() {
-    const { title, employees, search, topics, selectedEmployee, selectedTopic } = this.props;
+  return <div>
+    <ListSubheader>{title}</ListSubheader>
+    {renderEmployees({ employees, search, selectedEmployee, topics, selectedTopic })}
+  </div>;
 
-    return <div>
-      <ListSubheader>{title}</ListSubheader>
-      {this.renderEmployees({ employees, search, selectedEmployee, topics, selectedTopic })}
-    </div>;
-  }
 
 }
 

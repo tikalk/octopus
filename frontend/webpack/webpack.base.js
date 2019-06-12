@@ -9,10 +9,7 @@ module.exports = env => ({
         enforce: 'pre',
         test: /\.js?$/,
         include: path.resolve('./src'),
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'react', 'stage-2'],
-        },
+        loader: 'babel-loader',        
       },
       {
         test: /\.css$/,

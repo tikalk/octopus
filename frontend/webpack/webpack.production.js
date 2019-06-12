@@ -11,10 +11,10 @@ const plugins = [
     { from: path.resolve('public/index.html'), to: path.resolve('dist'), force: true },
     { from: path.resolve('public/callback.html'), to: path.resolve('dist'), force: true },
   ]),
-  /*new CompressionPlugin({
+  new CompressionPlugin({
     test: /\.js(\?.*)?$/i,
-    deleteOriginalAssets: true,
-  }),*/
+    deleteOriginalAssets: false,
+  }),
   new HtmlWebpackPlugin({
     inject: true,
     template: path.resolve('./public/index.html'),
@@ -24,7 +24,6 @@ const plugins = [
 
 const tree = {
   entry: [
-    'babel-polyfill',
     './src/index.js',
   ],
   output: {

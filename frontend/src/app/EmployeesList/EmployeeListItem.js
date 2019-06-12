@@ -18,36 +18,35 @@ const _renderSubItems = (topics, onSelectedTopic, selectedTopic, employee) => to
       style={{ textAlign: 'right', fontWeight: isSelected && 'bold' }} primary={topic.title}
     />
     {isSelected &&
-    <ListItemSecondaryAction><ListItemIcon><ThumbUpAlt /></ListItemIcon></ListItemSecondaryAction>}
+      <ListItemSecondaryAction><ListItemIcon><ThumbUpAlt /></ListItemIcon></ListItemSecondaryAction>}
   </ListItem>;
 });
 
-class EmployeeListItem extends React.Component {
+const EmployeeListItem = (props) => {
+  const { employee, isSelected, topics, selectedTopic } = props;
 
-  onSelectedTopic = (topic, employee) => {
-    this.props.onSelectedTopic(topic, employee);
-  };
-
-  onExpand = (employee) => {
-    this.props.onExpand(employee);
-  };
-
-  render() {
-    const { employee, isSelected, topics, selectedTopic } = this.props;
-    return <div>
-      <ExpansionPanel expanded={isSelected} onChange={() => this.onExpand(employee)}>
-        <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-          <div style={{ marginRight: 5 }}>{employee.name}</div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <List style={{ minHeight: 200 }}>
-            {isSelected && _renderSubItems(topics, this.onSelectedTopic, selectedTopic, employee)}
-          </List>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <Divider />
-    </div>;
+  const onSelectedTopic = (topic, employee) => {
+    props.onSelectedTopic(topic, employee);
   }
-};
+
+  const onExpand = (employee) => {
+    props.onExpand(employee);
+  };
+
+  return <div>
+    <ExpansionPanel expanded={isSelected} onChange={() => onExpand(employee)}>
+      <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+        <div style={{ marginRight: 5 }}>{employee.name}</div>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <List style={{ minHeight: 200 }}>
+          {isSelected && _renderSubItems(topics, onSelectedTopic, selectedTopic, employee)}
+        </List>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
+    <Divider />
+  </div>;
+}
+
 
 export default EmployeeListItem;

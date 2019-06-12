@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -36,36 +36,35 @@ const styles = theme => ({
   },
 });
 
-class Home extends React.Component {
+const Home = (props) => {
+  const { getEmployees, getTopics, setLoader, userLogOut, classes,
+    topicData, selectedTopic, selectedEmployee, topicLoader, refreshTopicClick
+  } = props;
 
-  componentDidMount() {
-    const { getEmployees, getTopics, setLoader } = this.props;
+  useEffect(() => {
     setLoader({ name: 'employees', state: true });
     getEmployees({});
     getTopics({});
-  }
+  }, []);
 
-  onLogoutClick = () => {
-    this.props.userLogOut();
+  const onLogoutClick = () => {
+    userLogOut();
   };
 
-  render() {
-    const { classes } = this.props;
-    const { topicData, selectedTopic, selectedEmployee, topicLoader, refreshTopicClick } = this.props;
-    return <div>
-      <Header onLogoutClick={this.onLogoutClick} />
+  return <div>
+    <Header onLogoutClick={onLogoutClick} />
 
-      <div className={classes.root}>
-        <Drawer
-          variant="permanent"
-          style={{ borderLeft: '1px solid #ECECEC' }}
-          classes={{ paper: classes.drawerPaper }}
-        >
-          <EmployeesList />
-        </Drawer>
+    <div className={classes.root}>
+      <Drawer
+        variant="permanent"
+        style={{ borderLeft: '1px solid #ECECEC' }}
+        classes={{ paper: classes.drawerPaper }}
+      >
+        <EmployeesList />
+      </Drawer>
 
-        <main className={classes.content}>
-          {topicData &&
+      <main className={classes.content}>
+        {topicData &&
           <TopicView
             topic={selectedTopic}
             employee={selectedEmployee}
@@ -73,13 +72,11 @@ class Home extends React.Component {
             loader={topicLoader}
             onRefreshButtonClick={refreshTopicClick}
           />}
-        </main>
-      </div>
+      </main>
+    </div>
+  </div>;
+};
 
-
-    </div>;
-  };
-}
 
 const mapStateToProps = ({ employees: employeesStore, topics: topicsStore, loaders }) => {
   const { selectedEmployee } = employeesStore;
