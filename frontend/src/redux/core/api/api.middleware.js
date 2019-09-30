@@ -11,7 +11,7 @@ import { userLogOut } from '../../feature/auth/auth.actions';
 
 const _getToken = () => store.get('token');
 
-export const apiMiddleware = ({ dispatch, getState }) => (next) => async (action) => {
+export const apiMiddleware = ({ dispatch, getState }) => next => async action => {
   next(action);
 
   if (action.type.includes(AT.API_REQUEST)) {
@@ -27,8 +27,8 @@ export const apiMiddleware = ({ dispatch, getState }) => (next) => async (action
       url: `${serverURL}/${url}`,
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Authorization': `Bearer ${_getToken()}`,
-      },
+        Authorization: `Bearer ${_getToken()}`
+      }
     };
 
     if (method !== 'get' && data) {
@@ -64,7 +64,6 @@ export const apiMiddleware = ({ dispatch, getState }) => (next) => async (action
         }
         dispatch(errorArr);
       })
-      .finally(() => {
-      });
+      .finally(() => {});
   }
 };

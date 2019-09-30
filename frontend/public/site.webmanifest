@@ -1,0 +1,24 @@
+{
+    "name": "Octopus",
+    "short_name": "Octopus",
+    "icons": [
+        {
+            "src": "/pwa/icons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/pwa/icons/android-chrome-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "pwa/icons/android-chrome-512x512.jpg",
+            "sizes": "512x512",
+            "type": "image/jpeg"
+        }
+    ],
+    "theme_color": "#fe885f",
+    "background_color": "#fe885f",
+    "display": "standalone"
+}

@@ -4,11 +4,11 @@
 
 //core - API
 export const API_REQUEST = 'API_REQUEST';
-const apiAction = (action) => ({
+const apiAction = action => ({
   SOURCE: `${action}`,
   API_REQUEST: `${action}.${API_REQUEST}`,
   SUCCESS: `${action}.SUCCESS`,
-  ERROR: `${action}.ERROR`,
+  ERROR: `${action}.ERROR`
 });
 
 export const SET_ERROR = 'SET_ERROR';
@@ -25,7 +25,7 @@ export const SET_LOAD_TOPICS_ERROR = 'SET_LOAD_TOPICS_ERROR';
 export const SET_SELECTED_TOPIC = 'SET_SELECTED_TOPIC';
 
 export const TOPIC_SELECTED = 'TOPIC_SELECTED';
-export const REFRESH_TOPIC_CLICKED = "REFRESH_TOPIC_CLICKED";
+export const REFRESH_TOPIC_CLICKED = 'REFRESH_TOPIC_CLICKED';
 
 export const GET_TOPIC_DATA = apiAction('GET_TOPIC_DATA');
 export const SET_TOPIC_DATA = 'SET_TOPIC_DATA';
@@ -42,4 +42,8 @@ export const SET_SELECTED_EMPLOYEE = 'SET_SELECTED_EMPLOYEE';
 export const LOADERS = '[LOADERS]';
 export const SET_LOADER = 'SET_LOADER';
 
-
+//UI
+export const UI = '[UI]';
+export const WINDOW_IS_BEING_RESIZED = 'WINDOW_IS_BEING_RESIZED';
+export const SET_WINDOW_WITH = 'SET_WINDOW_WITH';
+export const SET_MENU_OPEN_STATE = 'SET_MENU_OPEN_STATE';

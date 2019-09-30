@@ -5,38 +5,30 @@ import { routerMiddleware } from 'connected-react-router';
 import { loggerMiddleware } from './core/logger.middleware';
 import { actionSplitterMiddleware } from './core/actionSplitter.middleware';
 import { apiMiddleware } from './core/api/api.middleware';
-import { authMiddleware } from './feature/auth/auth.middleware';
-import { employeesMiddleware } from './feature/employees/employees.middleware';
-import { topicsMiddleware } from './feature/topics/topics.middleware';
+import authMiddleware from './feature/auth/auth.middleware';
+import employeesMiddleware from './feature/employees/employees.middleware';
+import topicsMiddleware from './feature/topics/topics.middleware';
+import uiMiddleware from './feature/ui/ui.middleware';
 
 const history = createHashHistory();
 const routeMiddleware = routerMiddleware(history);
 const reducers = reducersCreator(history);
 
-const coreMiddlewares = [
-  actionSplitterMiddleware,
-  routeMiddleware,
-  apiMiddleware,
-  loggerMiddleware,
-];
+const coreMiddlewares = [actionSplitterMiddleware, routeMiddleware, apiMiddleware, loggerMiddleware];
 
-const appMiddlewares = [
-  authMiddleware,
-  employeesMiddleware,
-  topicsMiddleware,
-];
+const appMiddlewares = [authMiddleware, employeesMiddleware, topicsMiddleware, uiMiddleware];
 
 const middlewares = [...coreMiddlewares, ...appMiddlewares];
 
 const composeEnhancers =
-  typeof window === 'object' &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-    }) : compose;
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+      })
+    : compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(...middlewares),
+  applyMiddleware(...middlewares)
   // other store enhancers if any
 );
 

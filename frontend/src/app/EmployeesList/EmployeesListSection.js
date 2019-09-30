@@ -1,23 +1,28 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import EmployeeListItem from './EmployeeListItem';
-import { topicSelected } from '../../redux/feature/topics/topics.actions';
-import { employeeSelected } from '../../redux/feature/employees/employees.actions';
 
-const EmployeesListSection = (props) => {
+const EmployeesListSection = props => {
+  const {
+    title,
+    employees,
+    search,
+    topics,
+    selectedEmployee,
+    selectedTopic,
+    onTopicSelected,
+    onEmployeeSelected
+  } = props;
 
-  const { title, employees, search, topics, selectedEmployee, selectedTopic } = props;
-
-  const onSelectedTopic = (topic, employee) => {
-    props.topicSelected({ topic, employee });
+  const handleSelectedTopic = (topic, employee) => {
+    onTopicSelected(topic);
   };
 
-  const onExpand = (employee) => {
-    props.employeeSelected(employee);
+  const handleExpand = employee => {
+    onEmployeeSelected(employee);
   };
 
-  const renderEmployees = ({ employees, search, selectedEmployee, topics, selectedTopic }) => (
+  const renderEmployees = ({ employees, search, selectedEmployee, topics, selectedTopic }) =>
     employees
       .filter(user => search == '' || user.name.includes(search))
       .map(employee => (
@@ -26,28 +31,24 @@ const EmployeesListSection = (props) => {
           key={employee.name}
           isSelected={employee.name === selectedEmployee.name}
           topics={topics}
-          onSelectedTopic={onSelectedTopic}
+          onSelectedTopic={handleSelectedTopic}
           selectedTopic={selectedTopic}
-          onExpand={onExpand}
+          onExpand={handleExpand}
         />
-      ))
+      ));
+
+  return (
+    <div>
+      <ListSubheader>{title}</ListSubheader>
+      {renderEmployees({
+        employees,
+        search,
+        selectedEmployee,
+        topics,
+        selectedTopic
+      })}
+    </div>
   );
-
-  return <div>
-    <ListSubheader>{title}</ListSubheader>
-    {renderEmployees({ employees, search, selectedEmployee, topics, selectedTopic })}
-  </div>;
-
-
-}
-
-const mapStateToProps = ({ employees: employeesStore, topics: topicsStore }) => {
-  const { employees, selectedEmployee } = employeesStore;
-  const { topics, selectedTopic } = topicsStore;
-  return { employees, topics, selectedEmployee, selectedTopic };
 };
 
-export default connect(mapStateToProps, {
-  topicSelected,
-  employeeSelected,
-})(EmployeesListSection);
+export default EmployeesListSection;

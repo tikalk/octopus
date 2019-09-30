@@ -4,46 +4,54 @@ const { EMPLOYEES } = AT;
 
 export const getEmployees = ({ force = false }) => {
   return {
-    type: `${EMPLOYEES} ${AT.GET_EMPLOYEES.API_REQUEST}`,
+    type: AT.GET_EMPLOYEES.API_REQUEST,
     payload: {},
     meta: {
       feature: EMPLOYEES,
       sourceAction: AT.GET_EMPLOYEES,
       url: 'api/employees',
       method: 'GET',
-      force,
-    },
+      force
+    }
   };
 };
 
-export const employeeSelected = (employee) => {
+export const employeeSelected = employee => {
   return {
-    type: `${EMPLOYEES} ${AT.EMPLOYEE_SELECTED}`,
+    type: AT.EMPLOYEE_SELECTED,
     payload: employee,
+    meta: {
+      feature: EMPLOYEES
+    }
   };
 };
 
-export const setSelectedEmployee = (employee) => {
+export const setSelectedEmployee = employee => {
   return {
-    type: `${EMPLOYEES} ${AT.SET_SELECTED_EMPLOYEE}`,
+    type: AT.SET_SELECTED_EMPLOYEE,
     payload: employee,
+    meta: {
+      feature: EMPLOYEES
+    }
   };
 };
 
-export const setEmployees = (employees) => {
+export const setEmployees = employees => {
   return {
-    type: `${EMPLOYEES} ${AT.SET_EMPLOYEES}`,
+    type: AT.SET_EMPLOYEES,
     payload: employees,
+    meta: {
+      feature: EMPLOYEES
+    }
   };
 };
 
-export const setError = (state) => {
+export const setError = state => {
   return {
-    type: `${EMPLOYEES} ${AT.SET_ERROR}`,
+    type: AT.SET_ERROR,
     payload: state,
+    meta: {
+      feature: EMPLOYEES
+    }
   };
 };
-
-
-
-

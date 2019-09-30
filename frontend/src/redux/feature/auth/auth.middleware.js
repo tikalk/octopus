@@ -1,17 +1,23 @@
-import { replace } from 'react-router-redux';
+import { replace } from 'connected-react-router';
 import store from 'store';
 import * as AT from './../../actionTypes';
+import createMiddleware from './../../middleware.helper';
 
 const { AUTH } = AT;
-export const authMiddleware = ({ dispatch, getState }) => (next) => (action) => {
-  next(action);
 
-  switch (true) {
-    case action.type.includes(`${AUTH} ${AT.LOGOUT_USER}`): {
-      store.clearAll();
-      dispatch([replace('/')]);
-    }
+const authMiddleware = async ({ action, dispatch, getState }) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case AT.LOGOUT_USER:
+      {
+        store.clearAll();
+        dispatch([replace('/')]);
+      }
       break;
-
   }
 };
+
+export default createMiddleware({
+  feature: AUTH
+})(authMiddleware);

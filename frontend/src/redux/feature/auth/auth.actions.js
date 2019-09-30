@@ -4,10 +4,9 @@ const { AUTH } = AT;
 
 export const userLogOut = () => {
   return {
-    type: `${AUTH} ${AT.LOGOUT_USER}`,
+    type: AT.LOGOUT_USER,
     meta: {
-      feature: AUTH,
-    },
+      feature: AUTH
+    }
   };
 };
-
