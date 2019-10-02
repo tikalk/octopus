@@ -8,17 +8,21 @@ const getTopics = async (req, res) => {
   const topicsToReturn = _.keys(topics).reduce((acc, topicId) => {
     const topic = _.get(topics, topicId);
     const { title } = topic;
+    const preFilledLinkObj = _.get(topic, 'preFilledLink');
+    let preFilledLink = null;
     if (
-      topic.roles && !topic.roles.includes(userRole) ||
-      topic.excludeRoles && topic.excludeRoles.includes(userRole)
-
+      (topic.roles && !topic.roles.includes(userRole)) ||
+      (topic.excludeRoles && topic.excludeRoles.includes(userRole))
     ) {
       return acc;
     }
     if (topic.group && !topic.groups.includes(userGroup)) {
       return acc;
     }
-    acc.push({ id: topicId, title });
+    if (preFilledLinkObj && preFilledLinkObj.roles.includes(userRole)) {
+      preFilledLink = preFilledLinkObj.url;
+    }
+    acc.push({ id: topicId, title, preFilledLink });
     return acc;
   }, []);
 
@@ -43,7 +47,7 @@ const getTopicData = async (req, res) => {
           topic: eTopic,
           sheetData: extendSheetData,
           userGroup,
-          userRole,
+          userRole
         });
         data = [...data, ...extendData];
       }
@@ -58,5 +62,5 @@ const getTopicData = async (req, res) => {
 
 module.exports = {
   getTopics,
-  getTopicData,
+  getTopicData
 };
