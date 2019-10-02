@@ -20,5 +20,9 @@
     ],
     "theme_color": "#fe885f",
     "background_color": "#fe885f",
-    "display": "standalone"
+    "display": "standalone",    
+    "start_url": "/#/app",
+    "scope": "/",
+    "orientation": "any",
+    "gcm_sender_id": "103953800507"
 }
