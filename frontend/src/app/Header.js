@@ -20,8 +20,8 @@ const Header = ({
   onMenuButtonClicked,
   isSmallScreen,
   className,
-  onCreateFormClicked,
-  createFormURL
+  onPreFilledFormClicked,
+  preFilledLink
 }) => (
   <AppBar className={className}>
     <Toolbar style={styles.toolbar}>
@@ -40,8 +40,8 @@ const Header = ({
           <IconButton aria-label="Refresh List" onClick={onLogoutClick}>
             <LogoutIcon />
           </IconButton>
-          {createFormURL && (
-            <IconButton aria-label="Create" onClick={onCreateFormClicked}>
+          {preFilledLink && (
+            <IconButton aria-label="Create" onClick={onPreFilledFormClicked}>
               <CreateIcon />
             </IconButton>
           )}

@@ -1,5 +1,5 @@
 import * as AT from './../../actionTypes';
-import { setWindowWith } from './ui.actions';
+import { setWindowSize } from './ui.actions';
 import createMiddleware from './../../middleware.helper';
 
 const { UI } = AT;
@@ -9,8 +9,8 @@ const uiMiddleware = async ({ action, dispatch, getState }) => {
   switch (type) {
     case AT.WINDOW_IS_BEING_RESIZED:
       {
-        const { width } = payload;
-        dispatch(setWindowWith({ width }));
+        const { width, height } = payload;
+        dispatch(setWindowSize({ width, height }));
       }
       break;
     default:

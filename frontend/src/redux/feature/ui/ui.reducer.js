@@ -7,6 +7,7 @@ const _isSmallScreen = width => width < 1200;
 
 const INIT_STATE = {
   width: window.innerWidth,
+  height: window.innerHeight,
   isSmallScreen: _isSmallScreen(window.innerWidth),
   menuOpen: true
 };
@@ -20,10 +21,11 @@ const uiReducer = (state = INIT_STATE, action) => {
   }
 
   switch (type) {
-    case AT.SET_WINDOW_WITH:
+    case AT.SET_WINDOW_SIZE:
       return {
         ...state,
         width: payload.width,
+        height: payload.height,
         isSmallScreen: _isSmallScreen(payload.width)
       };
 

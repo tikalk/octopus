@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import clsx from 'clsx';
+import { replace } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, CssBaseline } from '@material-ui/core';
 import Header from './Header';
 import EmployeesList from './EmployeesList';
 import TopicView from './TopicView';
 import { getEmployees, employeeSelected } from './../redux/feature/employees/employees.actions';
-import { getTopics, topicSelected, refreshTopicClick } from './../redux/feature/topics/topics.actions';
+import {
+  getTopics,
+  topicSelected,
+  refreshTopicClick,
+  preFilledFormClicked,
+  setFormDialogState
+} from './../redux/feature/topics/topics.actions';
 import { userLogOut } from './../redux/feature/auth/auth.actions';
 import { setLoader } from './../redux/feature/loaders/loaders.actions';
+import FormDialog from './FormDialog';
 
 const drawerWidth = 280;
 
@@ -82,9 +90,13 @@ const Home = () => {
   const employeesLoader = useSelector(state => state.loaders.employees);
   const topicLoader = useSelector(state => state.loaders.topic);
   const topicData = useSelector(state => state.topics.topicData);
+  const formDialogOpen = useSelector(state => state.topics.formDialogOpen);
+  const preFilledFormURL = useSelector(state => state.topics.preFilledFormURL);
+  const [width, height] = useSelector(({ ui: { width, height } }) => [width, height]);
+
   useEffect(() => {
     dispatch(getEmployees({}));
-    dispatch(getTopics({}));
+    dispatch(getTopics({ force: true }));
   }, []);
 
   const handleDrawerOpen = () => {
@@ -96,7 +108,7 @@ const Home = () => {
   };
 
   const handleEmployListRefreshClick = () => {
-    dispatch(setLoader({ name: 'employees', state: true }))
+    dispatch(setLoader({ name: 'employees', state: true }));
     dispatch(getEmployees({ force: true }));
   };
 
@@ -109,12 +121,20 @@ const Home = () => {
   };
 
   const handleRefreshTopicClick = () => {
-    dispatch(setLoader({ name: 'topic', state: true }))
+    dispatch(setLoader({ name: 'topic', state: true }));
     dispatch(refreshTopicClick());
   };
 
   const handleLogout = () => {
     dispatch(userLogOut());
+  };
+
+  const handlePreFilledFormClicked = () => {
+    dispatch(preFilledFormClicked({ topic: selectedTopic, employee: selectedEmployee }));
+  };
+
+  const handleFormDialogBackClicked = () => {
+    dispatch(setFormDialogState(false));
   };
 
   return (
@@ -128,6 +148,8 @@ const Home = () => {
         isSmallScreen={isSmallScreen}
         onMenuButtonClicked={handleDrawerOpen}
         onLogoutClick={handleLogout}
+        preFilledLink={selectedTopic.preFilledLink}
+        onPreFilledFormClicked={handlePreFilledFormClicked}
       />
       <main
         className={clsx(classes.content, {
@@ -168,6 +190,13 @@ const Home = () => {
           isLoader={employeesLoader}
         />
       </Drawer>
+      <FormDialog
+        open={formDialogOpen}
+        onBackClicked={handleFormDialogBackClicked}
+        preFilledFormURL={preFilledFormURL}
+        width={width}
+        height={height}
+      />
     </div>
   );
 };

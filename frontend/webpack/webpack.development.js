@@ -14,10 +14,7 @@ const plugins = [
     hash: true,
     template: './public/index.html',
     filename: 'index.html'
-  }),
-  new InjectManifest({
-    swSrc: 'src/sw.js'
-  })
+  })  
 ];
 
 const tree = {

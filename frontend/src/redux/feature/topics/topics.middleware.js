@@ -1,5 +1,15 @@
+import { replace } from 'lodash';
+import { push } from 'connected-react-router';
 import * as AT from './../../actionTypes';
-import { getTopicData, setLoadTopicsError, setSelectedTopic, setTopicData, setTopics } from './topics.actions';
+import {
+  getTopicData,
+  setLoadTopicsError,
+  setSelectedTopic,
+  setTopicData,
+  setTopics,
+  setPreFilledFormURL,
+  setFormDialogState
+} from './topics.actions';
 import { setLoader } from '../loaders/loaders.actions';
 import createMiddleware from './../../middleware.helper';
 
@@ -60,6 +70,19 @@ const topicsMiddleware = async ({ action, dispatch, getState }) => {
     case AT.GET_TOPIC_DATA.ERROR:
       {
         dispatch([setLoader({ name: 'topic', state: false })]);
+      }
+      break;
+
+    case AT.PRE_FILLED_FORM_CLICKED:
+      {
+        const { employee, topic } = payload;
+        let { preFilledLink } = topic;
+        if (preFilledLink) {
+          const { name, group } = employee;
+          preFilledLink = replace(preFilledLink, '{{name}}', name);
+          preFilledLink = replace(preFilledLink, '{{group}}', group);
+          dispatch([setPreFilledFormURL(preFilledLink), setFormDialogState(true)]);
+        }
       }
       break;
   }

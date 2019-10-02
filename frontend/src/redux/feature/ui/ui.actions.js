@@ -2,20 +2,20 @@ import * as AT from '../../actionTypes';
 
 const { UI } = AT;
 
-export const windowIsBeingResized = ({ width }) => {
+export const windowIsBeingResized = ({ width, height }) => {
   return {
     type: AT.WINDOW_IS_BEING_RESIZED,
-    payload: { width },
+    payload: { width, height },
     meta: {
       feature: UI
     }
   };
 };
 
-export const setWindowWith = ({ width }) => {
+export const setWindowSize = ({ width, height }) => {
   return {
-    type: AT.SET_WINDOW_WITH,
-    payload: { width },
+    type: AT.SET_WINDOW_SIZE,
+    payload: { width, height },
     meta: {
       feature: UI
     }

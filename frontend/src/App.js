@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Home from './app/Home';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 import LogIn from './containers/Login';
 import { windowIsBeingResized } from './redux/feature/ui/ui.actions';
+
 const App = ({ match }) => {
   const dispatch = useDispatch();
 
   const resizeHandler = () => {
-    dispatch(windowIsBeingResized({ width: window.innerWidth }));
+    dispatch(windowIsBeingResized({ width: window.innerWidth, height: window.innerHeight }));
   };
 
   useEffect(() => {

@@ -80,6 +80,16 @@ export const setLoadTopicsError = state => {
   };
 };
 
+export const setPreFilledFormURL = url => {
+  return {
+    type: AT.SET_PRE_FILLED_FORM_URL,
+    payload: url,
+    meta: {
+      feature: TOPICS
+    }
+  };
+};
+
 export const topicSelected = ({ topic, employee }) => {
   return {
     type: AT.TOPIC_SELECTED,
@@ -94,6 +104,26 @@ export const refreshTopicClick = () => {
   return {
     type: AT.REFRESH_TOPIC_CLICKED,
     payload: {},
+    meta: {
+      feature: TOPICS
+    }
+  };
+};
+
+export const preFilledFormClicked = ({ topic, employee }) => {
+  return {
+    type: AT.PRE_FILLED_FORM_CLICKED,
+    payload: { topic, employee },
+    meta: {
+      feature: TOPICS
+    }
+  };
+};
+
+export const setFormDialogState = state => {
+  return {
+    type: AT.SET_FORM_DIALOG_STATE,
+    payload: state,
     meta: {
       feature: TOPICS
     }
