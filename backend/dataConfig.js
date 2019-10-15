@@ -23,10 +23,16 @@ const topics = {
     },
     fields: [
       {
+        title: 'טלפון',
+        index: 8,
+        grid: 6
+      },
+      {
         title: 'מוביל',
         index: 3,
-        grid: 4
+        grid: 6
       },
+
       {
         title: 'רואדמאפ אחרון',
         index: 7,
