@@ -40,24 +40,24 @@ const topics = {
       {
         title: 'רואדמאפ אחרון',
         index: 7,
-        grid: 4
+        grid: 6
       },
       {
         title: 'פרופיל טכני',
         index: 5,
-        grid: 4
+        grid: 6
       },
       {
         title: 'רמת ניסיון',
         index: 4,
-        grid: 4,
+        grid: 6,
         excludeRoles: [EMPLOYEE]
       },
 
       {
         title: 'רמה טכנית',
         index: 6,
-        grid: 4,
+        grid: 6,
         excludeRoles: [EMPLOYEE]
       },
       {
