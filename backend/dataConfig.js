@@ -12,6 +12,35 @@ const employees = {
 };
 
 const topics = {
+  catchup: {
+    roles: [LEADER, HR, SALES, LIOR],
+    title: 'תיעוד שיחות',
+    spreadsheetId: '1ZyVHtZtasKt6Y_cWlk05N5_jmwywOTnlz4Fw7zHpUAQ',
+    preFilledLink: {
+      url:
+        'https://docs.google.com/forms/d/e/1FAIpQLSeeKfgf7OQwB21aH_twIpM9YOKImZ_RDBuDoNnNDhblOsTZGg/viewform?usp=pp_url&entry.2055705415={{name}}&entry.919242336={{group}}',
+      roles: [LEADER, HR, SALES, LIOR]
+    },
+    sheetId: 'Form Responses 1',
+    range: 'A2:Z1000',
+    employeeIdentifierIndex: 2,
+    sectionTitle: {
+      index: 0
+    },
+    reverseSections: false,
+    fields: [
+      {
+        title: 'שם מנהל השיחה',
+        index: 1,
+        grid: 3
+      },
+      {
+        title: 'תוכן השיחה',
+        index: 4,
+        grid: 9
+      }
+    ]
+  },
   general: {
     title: 'כללי',
     spreadsheetId: '1c5xPeWDm6JlEtwL-BhM3kVfIbUlNsf61Y4KaFoSlwtU',
@@ -343,7 +372,8 @@ const topics = {
     title: 'שביעות רצון לקוח',
     spreadsheetId: '1aR4v8CnGwWaMG9xuIHsy1COcaIJXOsw3q3XIMN8RWKY',
     preFilledLink: {
-      url: 'https://docs.google.com/forms/d/e/1FAIpQLSeqkvqlqI8u3lnvBtsuZJ5BDnZTmaQsHa2TXNOu9MXcD-Ilhw/viewform?usp=pp_url&entry.2120553200={{name}}',
+      url:
+        'https://docs.google.com/forms/d/e/1FAIpQLSeqkvqlqI8u3lnvBtsuZJ5BDnZTmaQsHa2TXNOu9MXcD-Ilhw/viewform?usp=pp_url&entry.2120553200={{name}}',
       roles: [SALES, HR, LIOR]
     },
     sheetId: 'Form Responses 1',
