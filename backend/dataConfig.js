@@ -32,7 +32,11 @@ const topics = {
         index: 3,
         grid: 6
       },
-
+      {
+        title: 'לקוחות',
+        index: 17,
+        grid: 12
+      },
       {
         title: 'רואדמאפ אחרון',
         index: 7,
