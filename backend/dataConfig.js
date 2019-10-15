@@ -12,35 +12,6 @@ const employees = {
 };
 
 const topics = {
-  catchup: {
-    roles: [LEADER, HR, SALES, LIOR],
-    title: 'תיעוד שיחות',
-    spreadsheetId: '1ZyVHtZtasKt6Y_cWlk05N5_jmwywOTnlz4Fw7zHpUAQ',
-    preFilledLink: {
-      url:
-        'https://docs.google.com/forms/d/e/1FAIpQLSeeKfgf7OQwB21aH_twIpM9YOKImZ_RDBuDoNnNDhblOsTZGg/viewform?usp=pp_url&entry.2055705415={{name}}&entry.919242336={{group}}',
-      roles: [LEADER, HR, SALES, LIOR]
-    },
-    sheetId: 'Form Responses 1',
-    range: 'A2:Z1000',
-    employeeIdentifierIndex: 2,
-    sectionTitle: {
-      index: 0
-    },
-    reverseSections: false,
-    fields: [
-      {
-        title: 'שם מנהל השיחה',
-        index: 1,
-        grid: 3
-      },
-      {
-        title: 'תוכן השיחה',
-        index: 4,
-        grid: 9
-      }
-    ]
-  },
   general: {
     title: 'כללי',
     spreadsheetId: '1c5xPeWDm6JlEtwL-BhM3kVfIbUlNsf61Y4KaFoSlwtU',
@@ -96,18 +67,47 @@ const topics = {
       },
       {
         title: 'סטטוס משפחתי',
-        index: 22,
+        index: 23,
         grid: 6
       },
       {
         title: 'מספר ילדים',
-        index: 24,
+        index: 25,
         grid: 6
       },
       {
         title: 'שם בן / בת הזוג',
-        index: 23,
+        index: 24,
         grid: 6
+      }
+    ]
+  },
+  catchup: {
+    roles: [LEADER, HR, SALES, LIOR],
+    title: 'תיעוד שיחות',
+    spreadsheetId: '1ZyVHtZtasKt6Y_cWlk05N5_jmwywOTnlz4Fw7zHpUAQ',
+    preFilledLink: {
+      url:
+        'https://docs.google.com/forms/d/e/1FAIpQLSeeKfgf7OQwB21aH_twIpM9YOKImZ_RDBuDoNnNDhblOsTZGg/viewform?usp=pp_url&entry.2055705415={{name}}&entry.919242336={{group}}',
+      roles: [LEADER, HR, SALES, LIOR]
+    },
+    sheetId: 'Form Responses 1',
+    range: 'A2:Z1000',
+    employeeIdentifierIndex: 2,
+    sectionTitle: {
+      index: 0
+    },
+    reverseSections: false,
+    fields: [
+      {
+        title: 'שם מנהל השיחה',
+        index: 1,
+        grid: 3
+      },
+      {
+        title: 'תוכן השיחה',
+        index: 4,
+        grid: 9
       }
     ]
   },
