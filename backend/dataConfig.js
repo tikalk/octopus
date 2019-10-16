@@ -8,6 +8,7 @@ const employees = {
   range: 'A2:M1000',
   groupIndex: 2,
   displayNameIndex: 1,
+  leaderIndex: 3,
   identifiersIndex: [0, 1, 9]
 };
 
@@ -98,7 +99,7 @@ const topics = {
     spreadsheetId: '1ZyVHtZtasKt6Y_cWlk05N5_jmwywOTnlz4Fw7zHpUAQ',
     preFilledLink: {
       url:
-        'https://docs.google.com/forms/d/e/1FAIpQLSeeKfgf7OQwB21aH_twIpM9YOKImZ_RDBuDoNnNDhblOsTZGg/viewform?usp=pp_url&entry.2055705415={{name}}&entry.919242336={{group}}',
+        'https://docs.google.com/forms/d/e/1FAIpQLSeeKfgf7OQwB21aH_twIpM9YOKImZ_RDBuDoNnNDhblOsTZGg/viewform?usp=pp_url&entry.2055705415={{name}}&entry.919242336={{group}}&entry.327553390={{me}}',
       roles: [LEADER, HR, SALES, LIOR]
     },
     sheetId: 'Form Responses 1',
@@ -127,7 +128,7 @@ const topics = {
     spreadsheetId: '1rGGQ2qH_Rsf3hc2axVQ0Q4tnRZmYB3ca_oC09qZdg2k',
     preFilledLink: {
       url:
-        'https://docs.google.com/forms/d/e/1FAIpQLSdGQIgkKGl6E-06r4UHgzWxlZ4P0dWLBDEeIU_-JtytVjnbgg/viewform?entry.784795528={{name}}&entry.2043706299={{group}}',
+        'https://docs.google.com/forms/d/e/1FAIpQLSdGQIgkKGl6E-06r4UHgzWxlZ4P0dWLBDEeIU_-JtytVjnbgg/viewform?entry.784795528={{name}}&entry.2043706299={{group}}&entry.773064783={{me}}',
       roles: [LEADER, HR, LIOR]
     },
     sheetId: '2017-2018',

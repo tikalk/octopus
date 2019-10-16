@@ -55,3 +55,13 @@ export const setError = state => {
     }
   };
 };
+
+export const setMe = me => {
+  return {
+    type: AT.SET_ME,
+    payload: me,
+    meta: {
+      feature: EMPLOYEES
+    }
+  };
+};

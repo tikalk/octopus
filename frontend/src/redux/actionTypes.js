@@ -16,6 +16,7 @@ export const SET_ERROR = 'SET_ERROR';
 // Auth
 export const AUTH = '[AUTH]';
 export const LOGOUT_USER = 'LOGOUT_USER';
+export const SET_ME = 'SET_ME';
 
 // Topics
 export const TOPICS = '[TOPICS]';

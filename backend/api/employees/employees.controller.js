@@ -1,33 +1,38 @@
-const { EMPLOYEE } = require('../../constants');
-
 const _ = require('lodash');
 
-const { getSheetData, formatPage } = require('./../../utils/spreadshit-data-fetcher');
+const { getSheetData } = require('./../../utils/spreadshit-data-fetcher');
 const { authorization } = require('./../../utils/google-authorization');
 const { ALL } = require('../../constants');
 const config = require('../../dataConfig');
 
 const getEmployees = async (req, res) => {
-  const { group, role, email: userEmail } = req.auth;
+  const { group, email: userEmail } = req.auth;
   const topic = config.employees;
   try {
     const auth = await authorization();
     const employeesData = await getSheetData({ auth, topic });
-    const { groupIndex, displayNameIndex, identifiersIndex } = topic;
-    const data = employeesData.reduce((acc, employeeArr) => {
-      const obj = {
-        group: employeeArr[groupIndex] || '',
-        name: employeeArr[displayNameIndex] || '',
-        identifiers: identifiersIndex.map(index => employeeArr[index]),
-      };
-      if (obj.group.toLowerCase() === group.toLowerCase() ||
-        group === ALL ||
-        (role === EMPLOYEE && obj.identifiers.find(identifier => identifier === userEmail))
-      ) {
-        acc.push(obj);
-      }
-      return acc;
-    }, []);
+    const { groupIndex, displayNameIndex, identifiersIndex, leaderIndex } = topic;
+    const data = employeesData.reduce(
+      (acc, employeeArr) => {
+        const obj = {
+          group: employeeArr[groupIndex] || '',
+          name: employeeArr[displayNameIndex] || '',
+          leader: employeeArr[leaderIndex],
+          identifiers: identifiersIndex.map(index => employeeArr[index])
+        };
+        if (obj.group.toLowerCase() === group.toLowerCase() || group === ALL) {
+          if (obj.identifiers.find(identifier => identifier === userEmail)) {
+            acc.me = { ...obj };
+          }
+          acc.employees.push(obj);
+        }
+        return acc;
+      },
+      { me: {}, employees: [] }
+    );
+
+    data.me.name = data.me.name || userEmail.split('@')[0];
+
     res.json(data);
   } catch (err) {
     console.log(err);
@@ -36,5 +41,5 @@ const getEmployees = async (req, res) => {
 };
 
 module.exports = {
-  getEmployees,
+  getEmployees
 };

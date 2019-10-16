@@ -76,11 +76,15 @@ const topicsMiddleware = async ({ action, dispatch, getState }) => {
     case AT.PRE_FILLED_FORM_CLICKED:
       {
         const { employee, topic } = payload;
+        const {
+          employees: { me }
+        } = getState();
         let { preFilledLink } = topic;
         if (preFilledLink) {
           const { name, group } = employee;
           preFilledLink = replace(preFilledLink, '{{name}}', name);
           preFilledLink = replace(preFilledLink, '{{group}}', group);
+          preFilledLink = replace(preFilledLink, '{{me}}', me.name || '');
           dispatch([setPreFilledFormURL(preFilledLink), setFormDialogState(true)]);
         }
       }

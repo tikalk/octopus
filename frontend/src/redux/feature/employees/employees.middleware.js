@@ -1,6 +1,6 @@
 import * as AT from './../../actionTypes';
 import { eq } from 'lodash';
-import { setEmployees, setError, setSelectedEmployee } from './employees.actions';
+import { setEmployees, setError, setSelectedEmployee, setMe } from './employees.actions';
 import { setTopicData, topicSelected } from '../topics/topics.actions';
 import { setLoader } from '../loaders/loaders.actions';
 import createMiddleware from './../../middleware.helper';
@@ -26,8 +26,11 @@ const employeesMiddleware = async ({ action, dispatch, getState }) => {
 
     case AT.GET_EMPLOYEES.SUCCESS:
       {
-        const { data } = payload;
-        dispatch([setEmployees(data), setLoader({ name: 'employees', state: false })]);
+        const {
+          data: { employees, me }
+        } = payload;
+
+        dispatch([setLoader({ name: 'employees', state: false }), setEmployees(employees), setMe(me)]);
       }
       break;
 
