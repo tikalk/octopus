@@ -26,8 +26,7 @@
             "src": "pwa/icons/android-chrome-180x180.jpg",
             "sizes": "180x180",
             "type": "image/jpeg"
-        },
-
+        }
     ],
     "theme_color": "#fe885f",
     "background_color": "#fe885f",
