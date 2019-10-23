@@ -457,6 +457,80 @@ const topics = {
         grid: 12
       }
     ]
+  },
+  reassignment: {
+    roles: [HR, LIOR, SALES],
+    title: 'שיחת ריאסיינמנט',
+    spreadsheetId: '1BGtPg6OysjFLxW57StadGiD66SA2LHkxvuOplEncUqs',
+    preFilledLink: {
+      url:
+        'https://docs.google.com/forms/d/e/1FAIpQLSfWhSJlh6_zNeIADF83-0MfKQjp3OyQxriPoqE-xD1j0QKEcw/viewform?usp=pp_url&entry.1716844105={{name}}&entry.1759542796={{group}}&entry.314843341={{leader}}',
+      roles: [HR]
+    },
+    sheetId: 'Form responses 1',
+    range: 'A2:AI1000',
+    employeeIdentifierIndex: 2,
+    sectionTitle: {
+      index: 0
+    },
+    reverseSections: false,
+    fields: [
+      {
+        title: 'סוג הריאסיינמנט',
+        index: 20,
+        grid: 6
+      },      
+      {
+        title: 'מוביל',
+        index: 4,
+        grid: 6
+      },
+      {
+        title: 'סיבת סיום',
+        index: 21,
+        grid: 6
+      },      
+      {
+        title: 'מקצוע במשימה האחרונה',
+        index: 22,
+        grid: 6
+      },
+      {
+        title: 'גמישות ואיזון ג״ג',
+        index: 10,
+        grid: 6
+      },
+      {
+        title: 'ידע רלוונטי נוכחי',
+        index: 23,
+        grid: 6
+      },
+      {
+        title: 'חוסרים משמעותיים',
+        index: 24,
+        grid: 6
+      },
+      {
+        title: 'שאיפות ודגשים',
+        index: 25,
+        grid: 6
+      },
+      {
+        title: 'רואדמאפ נוכחי',
+        index: 26,
+        grid: 6
+      },
+      {
+        title: 'הערות ודגשים',
+        index: 27,
+        grid: 6
+      },
+      {
+        title: 'חוזקות - מקצועי והתנהלות',
+        index: 28,
+        grid: 12
+      },      
+    ]
   }
 };
 

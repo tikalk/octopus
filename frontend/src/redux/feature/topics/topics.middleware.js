@@ -81,9 +81,10 @@ const topicsMiddleware = async ({ action, dispatch, getState }) => {
         } = getState();
         let { preFilledLink } = topic;
         if (preFilledLink) {
-          const { name, group } = employee;
-          preFilledLink = replace(preFilledLink, '{{name}}', name);
-          preFilledLink = replace(preFilledLink, '{{group}}', group);
+          const { name, group, leader } = employee;
+          preFilledLink = replace(preFilledLink, '{{name}}', name || '');
+          preFilledLink = replace(preFilledLink, '{{group}}', group || '');
+          preFilledLink = replace(preFilledLink, '{{leader}}', leader || '');
           preFilledLink = replace(preFilledLink, '{{me}}', me.name || '');
           dispatch([setPreFilledFormURL(preFilledLink), setFormDialogState(true)]);
         }
