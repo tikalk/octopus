@@ -23,7 +23,8 @@ const useStyles = makeStyles(theme => ({
     color: '#fff',
     border: 'none',
     fontSize: '18px',
-    width: '100%'
+    width: '100%',
+    direction: 'ltr'
   }
 }));
 
@@ -31,7 +32,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const FormDialog = ({ open, onBackClicked, preFilledFormURL, width, height }) => {
+const FormDialog = ({ open, onBackClicked, preFilledFormURL, preFilledFormShortURL, width, height }) => {
   const classes = useStyles();
   const hiddenInputElement = useRef(null);
 
@@ -59,7 +60,7 @@ const FormDialog = ({ open, onBackClicked, preFilledFormURL, width, height }) =>
           </Fab>
           <input
             type="text"
-            value={preFilledFormURL}
+            value={preFilledFormShortURL || preFilledFormURL}
             id="copyInput"
             className={classes.hiddenInput}
             ref={hiddenInputElement}

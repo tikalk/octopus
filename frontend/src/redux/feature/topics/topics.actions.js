@@ -80,10 +80,10 @@ export const setLoadTopicsError = state => {
   };
 };
 
-export const setPreFilledFormURL = url => {
+export const setPreFilledFormURL = ({ url, shortUrl }) => {
   return {
     type: AT.SET_PRE_FILLED_FORM_URL,
-    payload: url,
+    payload: { url, shortUrl },
     meta: {
       feature: TOPICS
     }
@@ -126,6 +126,19 @@ export const setFormDialogState = state => {
     payload: state,
     meta: {
       feature: TOPICS
+    }
+  };
+};
+
+export const getShortURL = ({ url }) => {
+  return {
+    type: AT.GET_SHORT_URL.API_REQUEST,
+    payload: { url },
+    meta: {
+      feature: TOPICS,
+      sourceAction: AT.GET_SHORT_URL,
+      url: `api/topics/preFilledLinkShortUrl`,
+      method: 'GET'
     }
   };
 };

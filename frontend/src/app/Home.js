@@ -92,6 +92,7 @@ const Home = () => {
   const topicData = useSelector(state => state.topics.topicData);
   const formDialogOpen = useSelector(state => state.topics.formDialogOpen);
   const preFilledFormURL = useSelector(state => state.topics.preFilledFormURL);
+  const preFilledFormShortURL = useSelector(state => state.topics.preFilledFormShortURL);
   const [width, height] = useSelector(({ ui: { width, height } }) => [width, height]);
 
   useEffect(() => {
@@ -194,6 +195,7 @@ const Home = () => {
         open={formDialogOpen}
         onBackClicked={handleFormDialogBackClicked}
         preFilledFormURL={preFilledFormURL}
+        preFilledFormShortURL={preFilledFormShortURL}
         width={width}
         height={height}
       />

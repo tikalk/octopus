@@ -10,6 +10,7 @@ export const INIT_STATE = {
   selectedTopic: {},
   topicData: '',
   preFilledFormURL: '',
+  preFilledFormShortURL: '',
   formDialogOpen: false
 };
 
@@ -36,7 +37,7 @@ export default (state = INIT_STATE, action) => {
       return { ...state, topicData: payload };
 
     case AT.SET_PRE_FILLED_FORM_URL:
-      return { ...state, preFilledFormURL: payload };
+      return { ...state, preFilledFormURL: payload.url, preFilledFormShortURL: payload.shortUrl };
 
     case AT.SET_FORM_DIALOG_STATE:
       return { ...state, formDialogOpen: payload };

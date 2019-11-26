@@ -8,7 +8,8 @@ import {
   setTopicData,
   setTopics,
   setPreFilledFormURL,
-  setFormDialogState
+  setFormDialogState,
+  getShortURL
 } from './topics.actions';
 import { setLoader } from '../loaders/loaders.actions';
 import createMiddleware from './../../middleware.helper';
@@ -49,7 +50,7 @@ const topicsMiddleware = async ({ action, dispatch, getState }) => {
 
     case AT.GET_TOPICS.SUCCESS:
       {
-        const { data } = action.payload;
+        const { data } = payload;
         dispatch(setTopics(data));
       }
       break;
@@ -62,7 +63,7 @@ const topicsMiddleware = async ({ action, dispatch, getState }) => {
 
     case AT.GET_TOPIC_DATA.SUCCESS:
       {
-        const { data } = action.payload;
+        const { data } = payload;
         dispatch([setTopicData(data), setLoader({ name: 'topic', state: false })]);
       }
       break;
@@ -86,8 +87,21 @@ const topicsMiddleware = async ({ action, dispatch, getState }) => {
           preFilledLink = replace(preFilledLink, '{{group}}', group || '');
           preFilledLink = replace(preFilledLink, '{{leader}}', leader || '');
           preFilledLink = replace(preFilledLink, '{{me}}', me.name || '');
-          dispatch([setPreFilledFormURL(preFilledLink), setFormDialogState(true)]);
+          dispatch([
+            setPreFilledFormURL(preFilledLink),
+            setFormDialogState(true),
+            getShortURL({ url: preFilledLink, shortUrl: '' })
+          ]);
         }
+      }
+      break;
+
+    case AT.GET_SHORT_URL.SUCCESS:
+      {
+        const {
+          data: { url, shortUrl }
+        } = payload;
+        dispatch(setPreFilledFormURL({ url, shortUrl }));
       }
       break;
   }
