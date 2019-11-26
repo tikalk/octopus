@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 const api = require('./api');
 const _ = require('lodash');
-require('dotenv').config();
 
 const PORT = process.env.PORT || 3333;
 const whitelist = ['http://localhost:8080', 'http://octopus.tikal.io', 'https://octopus.tikal.io'];

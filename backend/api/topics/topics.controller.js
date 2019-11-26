@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const { authorization } = require('./../../utils/google-authorization');
+const { getShortUrl } = require('./../../utils/url-shortner');
 const { getSheetData, formatData } = require('../../utils/spreadshit-data-fetcher');
 const { topics } = require('../../dataConfig');
 
@@ -60,7 +61,19 @@ const getTopicData = async (req, res) => {
   }
 };
 
+const getPreFilledLinkShortUrl = async (req, res) => {
+  const { url } = req.query;
+  try {
+    const { url: shortUrl } = await getShortUrl(url);
+    res.json({ url, shortUrl });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
 module.exports = {
   getTopics,
-  getTopicData
+  getTopicData,
+  getPreFilledLinkShortUrl
 };
