@@ -16,6 +16,7 @@ services:
       GOOGLE_API_CLIENT_SECRET: '6UKzxl5nD-qgh3N57tczGZZJ'
       GOOGLE_API_CLIENT_ID: '585213953123-p73u3gjppb4p1jjmrnfahhb6iqjgbk3n.apps.googleusercontent.com'
       GOOGLE_API_REDIRECT_URI: 'urn:ietf:wg:oauth:2.0:oob'
+      BITLY_ACCESS_TOKEN: '521eded2cfea19841f468fdc0a5d2fefe6a5918c'
     labels:
       traefik.enable: "true"
       traefik.port: "3333"
