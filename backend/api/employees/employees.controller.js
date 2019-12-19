@@ -6,7 +6,7 @@ const { ALL } = require('../../constants');
 const config = require('../../dataConfig');
 
 const getEmployees = async (req, res) => {
-  const { group, email: userEmail } = req.auth;
+  const { group = '', email: userEmail, role = EMPLOYEE } = req.auth;
   const topic = config.employees;
   try {
     const auth = await authorization();
@@ -20,8 +20,11 @@ const getEmployees = async (req, res) => {
           leader: employeeArr[leaderIndex],
           identifiers: identifiersIndex.map(index => employeeArr[index])
         };
-        if (obj.group.toLowerCase() === group.toLowerCase() || group === ALL) {
-          if (obj.identifiers.find(identifier => identifier === userEmail)) {
+        const isMe = obj.identifiers.find(identifier => identifier === userEmail);
+        const isMyGroup = obj.group.toLowerCase() === group.toLowerCase() || group === ALL;
+
+        if (isMe || isMyGroup) {
+          if (isMe) {
             acc.me = { ...obj };
           }
           acc.employees.push(obj);
