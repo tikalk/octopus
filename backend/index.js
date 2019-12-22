@@ -5,6 +5,10 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const api = require('./api');
 const _ = require('lodash');
+const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
+const {makeExecutableSchema} = require('graphql-tools');
+const {typeDefs} = require('/.graphql/type-defs');
+const {resolvers} = require('/.graphql/resolvers');
 
 const PORT = process.env.PORT || 3333;
 const whitelist = ['http://localhost:8080', 'http://octopus.tikal.io', 'https://octopus.tikal.io'];
@@ -22,7 +26,18 @@ app.use(cors({
   },
 }));
 
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers
+})
+
 app.use('/api', tokenToUserMW, api);
+
+app.use('/graphql', bodyParser.json(), graphqlExpress({schema}));
+
+app.use('/graphiql', graphiqlExpress({
+  endpointURL: '/graphql'
+}));
 
 app.get('/health_check', (req, res) => {
   res.status(200).json({ health: 'OK' });
