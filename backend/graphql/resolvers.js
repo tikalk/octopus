@@ -27,7 +27,7 @@ const resolvers = {
   Mutation: {
     createEvent: async (root, args, context, info) => {
       console.log(`args is ${util.inspect(args)}`);
-      const event = new Event({args});
+      const event = new Event(args);
       const ret = await event.save();
       return ret;
     },
