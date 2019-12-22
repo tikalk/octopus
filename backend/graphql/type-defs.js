@@ -1,27 +1,37 @@
 const typeDefs = [`
-  type Query {
-    post(_id: String): Post
-    posts: [Post]
-    comment(_id: String): Comment
+
+  type Query{
+    event(_id: String): Event
   }
 
-  type Post {
+  type User {
+    email: String
+  }
+
+  type Content {
     _id: String
     title: String
-    content: String
-    comments: [Comment]
+    owners: [User]
   }
 
-  type Comment {
+  type Event {
     _id: String
-    postId: String
-    content: String
-    post: Post
+    when: String
+    where: String
+    organizers: [User]
+    contents: [Content]
+  }
+
+  input OrganizerInput{
+    id: String
+  }
+
+  input ContentInput{
+    id: String
   }
 
   type Mutation {
-    createPost(title: String, content: String): Post
-    createComment(postId: String, content: String): Comment
+    createEvent(when: String, where: String, organizers: [OrganizerInput], contents: [ContentInput]): Event
   }
 
   schema {

@@ -1,5 +1,6 @@
 const Event = require('../models/event');
 const Content = require('../models/content');
+const util = require('util');
 
 const resolvers = {
   // Query: {
@@ -25,6 +26,7 @@ const resolvers = {
   // },
   Mutation: {
     createEvent: async (root, args, context, info) => {
+      console.log(`args is ${util.inspect(args)}`);
       const event = new Event({args});
       const ret = await event.save();
       return ret;

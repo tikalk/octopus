@@ -9,12 +9,12 @@ const mongoose = require('mongoose')
 
 const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
 const {makeExecutableSchema} = require('graphql-tools');
-const {typeDefs} = require('/.graphql/type-defs');
-const {resolvers} = require('/.graphql/resolvers');
+const {typeDefs} = require('./graphql/type-defs');
+const {resolvers} = require('./graphql/resolvers');
 
 const PORT = process.env.PORT || 3333;
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/octopus';
-const whitelist = ['http://localhost:8080', 'http://octopus.tikal.io', 'https://octopus.tikal.io'];
+const whitelist = ['http://localhost:3333', 'http://localhost:8080', 'http://octopus.tikal.io', 'https://octopus.tikal.io'];
 const { tokenToUserMW } = require('./middlewares/token.middleware');
 
 mongoose.connect(MONGO_URL, { useNewUrlParser: true });
