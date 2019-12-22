@@ -3,42 +3,40 @@ const Content = require('../models/content');
 const util = require('util');
 
 const resolvers = {
-  // Query: {
-  //   post: async (root, {_id}) => {
-  //     return prepare(await Posts.findOne(ObjectId(_id)))
-  //   },
-  //   posts: async () => {
-  //     return (await Posts.find({}).toArray()).map(prepare)
-  //   },
-  //   comment: async (root, {_id}) => {
-  //     return prepare(await Comments.findOne(ObjectId(_id)))
-  //   },
-  // },
-  // Post: {
-  //   comments: async ({_id}) => {
-  //     return (await Comments.find({postId: _id}).toArray()).map(prepare)
-  //   }
-  // },
-  // Comment: {
-  //   post: async ({postId}) => {
-  //     return prepare(await Posts.findOne(ObjectId(postId)))
-  //   }
-  // },
+  Query: {
+    event: async (root, {_id}) => {
+      return await Event.findOne({_id});
+    },
+    events: async () => {
+      return await Event.find();
+    },
+    content: async (root, {_id}) => {
+      return await Content.findOne({_id});
+    },
+    contents: async () => {
+      return await Content.find();
+    }
+  },
+  Event: {
+    contents: async({_id}) => {
+      const event = await Event.findOne({_id});
+      const contentIDs = event.contents.map((content) => content.id);
+      return await Content.find({_id:{$in: contentIDs}});
+    }
+  },
   Mutation: {
     createEvent: async (root, args, context, info) => {
-      console.log(`args is ${util.inspect(args)}`);
+      // console.log(`args is ${util.inspect(args)}`);
       const event = new Event(args);
       const ret = await event.save();
       return ret;
     },
-    // createPost: async (root, args, context, info) => {
-    //   const res = await Posts.insertOne(args)
-    //   return prepare(res.ops[0])  // https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~insertOneWriteOpResult
-    // },
-    // createComment: async (root, args) => {
-    //   const res = await Comments.insert(args)
-    //   return prepare(await Comments.findOne({_id: res.insertedIds[1]}))
-    // },
+    createContent: async (root, args, context, info) => {
+      // console.log(`args is ${util.inspect(args)}`);
+      const content = new Content(args);
+      const ret = await content.save();
+      return ret;
+    },
   },
 }
 
