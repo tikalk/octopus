@@ -5,18 +5,19 @@ const _ = require('lodash');
 
 const _filterDataByEmployee = ({ topic, sheetData, identifiers }) =>
   sheetData.filter(row =>
-    identifiers.find(identifier => _.trim(identifier) === _.trim(row[topic.employeeIdentifierIndex])));
+    identifiers.find(identifier => _.trim(identifier) === _.trim(row[topic.employeeIdentifierIndex]))
+  );
 
 const getSheetData = async ({ topic, auth, identifiers }) => {
   const { spreadsheetId, sheetId, range } = topic;
   const request = {
     // The ID of the spreadsheet to retrieve data from.
-    spreadsheetId,  // TODO: Update placeholder value.
-    range: `'${sheetId}'!${range}`,  // TODO: Update placeholder value.
+    spreadsheetId, // TODO: Update placeholder value.
+    range: `'${sheetId}'!${range}`, // TODO: Update placeholder value.
     majorDimension: 'ROWS',
-    valueRenderOption: 'FORMATTED_VALUE',  // TODO: Update placeholder value.
-    dateTimeRenderOption: 'FORMATTED_STRING',  // TODO: Update placeholder value.
-    auth: auth,
+    valueRenderOption: 'FORMATTED_VALUE', // TODO: Update placeholder value.
+    dateTimeRenderOption: 'FORMATTED_STRING', // TODO: Update placeholder value.
+    auth: auth
   };
 
   return new Promise((resolve, reject) => {
@@ -24,12 +25,23 @@ const getSheetData = async ({ topic, auth, identifiers }) => {
       if (err) {
         return reject(err);
       }
-      const { data: { values } } = response;
-      return resolve(identifiers ? _filterDataByEmployee({
-        topic,
-        sheetData: values,
-        identifiers,
-      }) : values);
+      const {
+        data: { values }
+      } = response;
+      if (values) {
+        return resolve(
+          identifiers
+            ? _filterDataByEmployee({
+                topic,
+                sheetData: values,
+                identifiers
+              })
+            : values
+        );
+      } else {
+        //no rows at the spread sheet at all
+        return resolve([]);
+      }
     });
   });
 };
@@ -39,9 +51,10 @@ const formatData = ({ sheetData, topic, userGroup, userRole }) => {
   return sheetData.map(row => {
     const formattedFields = fields.reduce((acc, field) => {
       if (
-        field.roles && !field.roles.includes(userRole) ||
-        field.excludeRoles && field.excludeRoles.includes(userRole)
-      ) return acc;
+        (field.roles && !field.roles.includes(userRole)) ||
+        (field.excludeRoles && field.excludeRoles.includes(userRole))
+      )
+        return acc;
       if (userGroup !== ALL && field.group && !field.group.includes(userGroup)) return;
 
       const { title, grid, index } = field;
@@ -51,13 +64,12 @@ const formatData = ({ sheetData, topic, userGroup, userRole }) => {
 
     return {
       sectionTitle: row[sectionTitle.index],
-      fields: formattedFields,
+      fields: formattedFields
     };
   });
-
 };
 
 module.exports = {
   getSheetData,
-  formatData,
+  formatData
 };
