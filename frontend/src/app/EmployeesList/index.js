@@ -22,13 +22,13 @@ const EmployeesList = props => {
   };
 
   const renderEmployeesDetails = () => {
-    const groups = groupBy(employees, 'group');
+    const groups = groupBy(employees, 'group');    
     return Object.keys(groups).map(groupName => (
       <EmployeesListSection
         key={groupName}
         title={groupName}
         search={search}
-        employees={employees}
+        employees={groups[groupName]}
         selectedEmployee={selectedEmployee}
         topics={topics}
         selectedTopic={selectedTopic}
