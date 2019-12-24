@@ -5,8 +5,8 @@ const { authorization } = require('./google-authorization');
 const { ALL } = require('../constants');
 const config = require('../dataConfig');
 
-const getEmployeesList = async (req) => {
-  const { group = '', email: userEmail, role = EMPLOYEE } = req.auth;
+const getEmployeesList = async (authData) => {
+  const { group = '', email: userEmail, role = EMPLOYEE } = authData;
   const topic = config.employees;
   const auth = await authorization();
   const employeesData = await getSheetData({ auth, topic });
