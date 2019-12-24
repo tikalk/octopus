@@ -5,6 +5,7 @@ const typeDefs = [`
     events: [Event]
     content(_id: String): Content
     contents: [Content]
+    employees: [User]
   }
 
   type User {
