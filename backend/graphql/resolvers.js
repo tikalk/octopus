@@ -1,6 +1,7 @@
 const Event = require('../models/event');
 const Content = require('../models/content');
 const util = require('util');
+const { getEmployeesList } = require('../utils/employees.util.js');
 
 const resolvers = {
   Query: {
@@ -15,6 +16,15 @@ const resolvers = {
     },
     contents: async () => {
       return await Content.find();
+    },
+    employees: async (root, args, context) => {
+      const employees = await getEmployeesList(context.req.auth);
+      return employees.employees.map((employee) => {
+        const email = employee.identifiers.find((element) => element.includes('@'));
+        return {
+          email
+        }
+      });
     }
   },
   Event: {

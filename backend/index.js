@@ -38,7 +38,8 @@ const schema = makeExecutableSchema({
 
 app.use('/api', tokenToUserMW, api);
 
-app.use('/graphql', bodyParser.json(), graphqlExpress({schema}));
+// app.use('/graphql', bodyParser.json(), graphqlExpress({schema}));
+app.use('/graphql', bodyParser.json(), tokenToUserMW, graphqlExpress(req => ({schema, context: {req}})));
 
 app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql'
