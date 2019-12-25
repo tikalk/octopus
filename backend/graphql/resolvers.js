@@ -45,6 +45,12 @@ const resolvers = {
       const ret = await content.save();
       return ret;
     },
+    addEventAttendees: async (root, args, context, info) => {
+      const event = await Event.findOne({_id: args._id});
+      event.attendees = [...event.attendees,...args.attendees];
+      const ret = event.save();
+      return ret;
+    }
   },
 }
 

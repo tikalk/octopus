@@ -35,6 +35,10 @@ const typeDefs = [`
     email: String
   }
 
+  input AttendeeInput{
+    email: String
+  }
+
   input ContentInput{
     id: String
   }
@@ -42,6 +46,7 @@ const typeDefs = [`
   type Mutation {
     createEvent(when: String, where: String, organizers: [OrganizerInput], contents: [ContentInput]): Event
     createContent(title: String, type: String, owners: [OwnersInput]): Content
+    addEventAttendees(_id: String, attendees: [AttendeeInput]): Event
   }
 
   schema {
