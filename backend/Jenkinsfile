@@ -101,7 +101,7 @@ pipeline
         always{
             // make sure that the temp Docker images is removed
             sh "docker rmi $IMAGE | true"
-            sh "docker rmi $IMAGE_LATEST | true"
+            sh "docker rmi $(docker images | grep '<none>' | awk '{print $3}') && echo 'Removed succssfully'"
         }
     }
 }
