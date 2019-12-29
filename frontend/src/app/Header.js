@@ -36,11 +36,14 @@ const Header = ({
   isSmallScreen,
   className,
   onPreFilledFormClicked,
-  preFilledLink
+  preFilledLink,
+  onTabChanged
 }) => {
 
   const handleChange = (event, newValue) => {
+    console.log('new tab index: ' + newValue)
     setValue(newValue);
+    onTabChanged(newValue);
   };
 
   const [value, setValue] = React.useState(0);

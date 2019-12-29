@@ -84,18 +84,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const TabPanel = props => {
-  const { children, value, index, ...other } = props;
+  const { children, tabIndex, index, ...other } = props;
 
   return (
     <Typography
       component="div"
       role="tabpanel"
-      hidden={value !== index}
+      hidden={tabIndex !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box p={2}>{children}</Box>}
+      {tabIndex === index && <Box p={2}>{children}</Box>}
     </Typography>
   );
 }
@@ -167,8 +167,12 @@ const Home = () => {
     dispatch(setFormDialogState(false));
   };
 
-  const [value, setValue] = React.useState(0);
+  const [tabIndex, setTabIndex] = React.useState(0);
 
+  const handleTabChanged = (newTabIndex) => {
+    console.log('new tabIndex: ' + newTabIndex)
+    setTabIndex(newTabIndex);
+  };
 
   return (
       <div className={classes.root}>
@@ -183,8 +187,9 @@ const Home = () => {
           onLogoutClick={handleLogout}
           preFilledLink={selectedTopic.preFilledLink}
           onPreFilledFormClicked={handlePreFilledFormClicked}
+          onTabChanged={handleTabChanged}
         />
-        <TabPanel value={value} index={0}>
+        <TabPanel value={tabIndex} index={0}>
           <main
             className={clsx(classes.content, {
               [classes.contentSmallScreen]: isSmallScreen,
@@ -233,8 +238,8 @@ const Home = () => {
             height={height}
           />
         </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
+        <TabPanel value={tabIndex} index={1}>
+          hello tab2
         </TabPanel>
 
       </div>
