@@ -4,8 +4,7 @@ import clsx from 'clsx';
 import { replace } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, CssBaseline } from '@material-ui/core';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
@@ -103,7 +102,7 @@ const TabPanel = props => {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  tabIndex: PropTypes.any.isRequired,
 };
 
 const Home = () => {
@@ -182,6 +181,7 @@ const Home = () => {
             [classes.appBarSmallScreen]: isSmallScreen,
             [classes.appBarRegularScreen]: !isSmallScreen
           })}
+          selectedTab={tabIndex}
           isSmallScreen={isSmallScreen}
           onMenuButtonClicked={handleDrawerOpen}
           onLogoutClick={handleLogout}
@@ -189,7 +189,7 @@ const Home = () => {
           onPreFilledFormClicked={handlePreFilledFormClicked}
           onTabChanged={handleTabChanged}
         />
-        <TabPanel value={tabIndex} index={0}>
+        <TabPanel tabIndex={tabIndex} index={0}>
           <main
             className={clsx(classes.content, {
               [classes.contentSmallScreen]: isSmallScreen,
@@ -238,7 +238,7 @@ const Home = () => {
             height={height}
           />
         </TabPanel>
-        <TabPanel value={tabIndex} index={1}>
+        <TabPanel tabIndex={tabIndex} index={1}>
           hello tab2
         </TabPanel>
 

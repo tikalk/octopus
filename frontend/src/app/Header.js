@@ -31,6 +31,7 @@ function a11yProps(index) {
 
 
 const Header = ({
+  selectedTab,
   onLogoutClick,
   onMenuButtonClicked,
   isSmallScreen,
@@ -41,12 +42,8 @@ const Header = ({
 }) => {
 
   const handleChange = (event, newValue) => {
-    console.log('new tab index: ' + newValue)
-    setValue(newValue);
     onTabChanged(newValue);
   };
-
-  const [value, setValue] = React.useState(0);
 
   return(
   <AppBar className={className}>
@@ -74,7 +71,7 @@ const Header = ({
         </Grid>
       </Grid>
     </Toolbar>
-    <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+    <Tabs value={selectedTab} onChange={handleChange} aria-label="simple tabs example">
       <Tab label="עובדים" {...a11yProps(0)} />
       <Tab label="מפגשים" {...a11yProps(1)} />
     </Tabs>
