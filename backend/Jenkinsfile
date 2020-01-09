@@ -101,7 +101,7 @@ pipeline
         always{
             // make sure that the temp Docker images are removed, and since the old latest image has lost its tag 
             sh "docker rmi $IMAGE | true"
-            sh "docker rmi $(docker images | grep '<none>' | awk '{print $3}') && echo 'Removed succssfully'"
+            sh "docker rmi \$(docker images | grep '<none>' | awk '{print \$3}') && echo 'Removed succssfully'"
         }
     }
 }
