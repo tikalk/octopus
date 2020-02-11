@@ -4,6 +4,11 @@ import clsx from 'clsx';
 import { replace } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, CssBaseline } from '@material-ui/core';
+
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import PropTypes from 'prop-types';
+
 import Header from './Header';
 import EmployeesList from './EmployeesList';
 import TopicView from './TopicView';
@@ -77,6 +82,29 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const TabPanel = props => {
+  const { children, tabIndex, index, ...other } = props;
+
+  return (
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={tabIndex !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {tabIndex === index && <Box p={2}>{children}</Box>}
+    </Typography>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  tabIndex: PropTypes.any.isRequired,
+};
+
 const Home = () => {
   const classes = useStyles();
 
@@ -138,69 +166,84 @@ const Home = () => {
     dispatch(setFormDialogState(false));
   };
 
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <Header
-        className={clsx(classes.appBar, {
-          [classes.appBarSmallScreen]: isSmallScreen,
-          [classes.appBarRegularScreen]: !isSmallScreen
-        })}
-        isSmallScreen={isSmallScreen}
-        onMenuButtonClicked={handleDrawerOpen}
-        onLogoutClick={handleLogout}
-        preFilledLink={selectedTopic.preFilledLink}
-        onPreFilledFormClicked={handlePreFilledFormClicked}
-      />
-      <main
-        className={clsx(classes.content, {
-          [classes.contentSmallScreen]: isSmallScreen,
-          [classes.contentRegularScreen]: !isSmallScreen
-        })}
-      >
-        <div className={classes.drawerHeader} />
+  const [tabIndex, setTabIndex] = React.useState(0);
 
-        {topicData && (
-          <TopicView
-            topic={selectedTopic}
-            employee={selectedEmployee}
-            topicData={topicData}
-            loader={topicLoader}
-            onRefreshButtonClick={handleRefreshTopicClick}
-          />
-        )}
-      </main>
-      <Drawer
-        className={classes.drawer}
-        variant={isSmallScreen ? 'temporary' : 'permanent'}
-        anchor="left"
-        open={menuOpen}
-        classes={{
-          paper: classes.drawerPaper
-        }}
-        onClose={handleDrawerClose}
-      >
-        <EmployeesList
-          onEmployListRefreshClick={handleEmployListRefreshClick}
-          onEmployeeSelected={handleEmployeeSelected}
-          onTopicSelected={handleTopicSelected}
-          employees={employees}
-          topics={topics}
-          selectedEmployee={selectedEmployee}
-          selectedTopic={selectedTopic}
-          isLoader={employeesLoader}
+  const handleTabChanged = (newTabIndex) => {
+    console.log('new tabIndex: ' + newTabIndex)
+    setTabIndex(newTabIndex);
+  };
+
+  return (
+      <div className={classes.root}>
+        <CssBaseline />
+        <Header
+          className={clsx(classes.appBar, {
+            [classes.appBarSmallScreen]: isSmallScreen,
+            [classes.appBarRegularScreen]: !isSmallScreen
+          })}
+          selectedTab={tabIndex}
+          isSmallScreen={isSmallScreen}
+          onMenuButtonClicked={handleDrawerOpen}
+          onLogoutClick={handleLogout}
+          preFilledLink={selectedTopic.preFilledLink}
+          onPreFilledFormClicked={handlePreFilledFormClicked}
+          onTabChanged={handleTabChanged}
         />
-      </Drawer>
-      <FormDialog
-        open={formDialogOpen}
-        onBackClicked={handleFormDialogBackClicked}
-        preFilledFormURL={preFilledFormURL}
-        preFilledFormShortURL={preFilledFormShortURL}
-        width={width}
-        height={height}
-      />
-    </div>
-  );
-};
+        <TabPanel tabIndex={tabIndex} index={0}>
+          <main
+            className={clsx(classes.content, {
+              [classes.contentSmallScreen]: isSmallScreen,
+              [classes.contentRegularScreen]: !isSmallScreen
+            })}
+          >
+            <div className={classes.drawerHeader} />
+
+            {topicData && (
+              <TopicView
+                topic={selectedTopic}
+                employee={selectedEmployee}
+                topicData={topicData}
+                loader={topicLoader}
+                onRefreshButtonClick={handleRefreshTopicClick}
+              />
+            )}
+          </main>
+          <Drawer
+            className={classes.drawer}
+            variant={isSmallScreen ? 'temporary' : 'permanent'}
+            anchor="left"
+            open={menuOpen}
+            classes={{
+              paper: classes.drawerPaper
+            }}
+            onClose={handleDrawerClose}
+          >
+            <EmployeesList
+              onEmployListRefreshClick={handleEmployListRefreshClick}
+              onEmployeeSelected={handleEmployeeSelected}
+              onTopicSelected={handleTopicSelected}
+              employees={employees}
+              topics={topics}
+              selectedEmployee={selectedEmployee}
+              selectedTopic={selectedTopic}
+              isLoader={employeesLoader}
+            />
+          </Drawer>
+          <FormDialog
+            open={formDialogOpen}
+            onBackClicked={handleFormDialogBackClicked}
+            preFilledFormURL={preFilledFormURL}
+            preFilledFormShortURL={preFilledFormShortURL}
+            width={width}
+            height={height}
+          />
+        </TabPanel>
+        <TabPanel tabIndex={tabIndex} index={1}>
+          hello tab2
+        </TabPanel>
+
+      </div>
+    );
+  };
 
 export default Home;

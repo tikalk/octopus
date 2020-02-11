@@ -4,6 +4,10 @@ import { AppBar, IconButton, Toolbar, Typography, Grid } from '@material-ui/core
 import { ExitToApp as LogoutIcon } from '@material-ui/icons';
 import { Create as CreateIcon } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
+import PropTypes from 'prop-types';
 
 const styles = {
   toolbar: {
@@ -15,14 +19,33 @@ const styles = {
   }
 };
 
+
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+
+
 const Header = ({
+  selectedTab,
   onLogoutClick,
   onMenuButtonClicked,
   isSmallScreen,
   className,
   onPreFilledFormClicked,
-  preFilledLink
-}) => (
+  preFilledLink,
+  onTabChanged
+}) => {
+
+  const handleChange = (event, newValue) => {
+    onTabChanged(newValue);
+  };
+
+  return(
   <AppBar className={className}>
     <Toolbar style={styles.toolbar}>
       <Grid container justify={'space-between'} alignItems={'center'}>
@@ -48,7 +71,11 @@ const Header = ({
         </Grid>
       </Grid>
     </Toolbar>
+    <Tabs value={selectedTab} onChange={handleChange} aria-label="simple tabs example">
+      <Tab label="עובדים" {...a11yProps(0)} />
+      <Tab label="מפגשים" {...a11yProps(1)} />
+    </Tabs>
   </AppBar>
-);
+)};
 
 export default withStyles(styles)(Header);
