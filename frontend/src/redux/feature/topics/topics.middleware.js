@@ -80,7 +80,7 @@ const topicsMiddleware = async ({ action, dispatch, getState }) => {
         const {
           employees: { me }
         } = getState();
-        let { preFilledLink } = topic;
+        let { preFilledLink, id: topicId } = topic;
         if (preFilledLink) {
           const { name, group, leader } = employee;
           preFilledLink = replace(preFilledLink, '{{name}}', name || '');
@@ -90,7 +90,7 @@ const topicsMiddleware = async ({ action, dispatch, getState }) => {
           dispatch([
             setPreFilledFormURL(preFilledLink),
             setFormDialogState(true),
-            getShortURL({ url: preFilledLink, shortUrl: '' })
+            getShortURL({ url: preFilledLink, topicId })
           ]);
         }
       }

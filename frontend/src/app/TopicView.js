@@ -56,7 +56,13 @@ const TopicView = ({ topicData, topic, employee, loader, onRefreshButtonClick })
                           field.value && (
                             <Grid item xs={12} md={field.grid} key={`${field.index}_${index}`}>
                               <Typography style={{ marginBottom: 16 }}>
-                                <strong>{field.title}:</strong> {field.value}
+                                <strong>{field.title}:</strong>{' '}
+                                {field.value.split('\n').map((text, key) => (
+                                  <span key={key}>
+                                    {text}
+                                    <br />
+                                  </span>
+                                ))}
                               </Typography>
                             </Grid>
                           )

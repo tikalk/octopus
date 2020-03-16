@@ -130,14 +130,14 @@ export const setFormDialogState = state => {
   };
 };
 
-export const getShortURL = ({ url }) => {
+export const getShortURL = ({ url, topicId }) => {
   return {
     type: AT.GET_SHORT_URL.API_REQUEST,
     payload: { url },
     meta: {
       feature: TOPICS,
       sourceAction: AT.GET_SHORT_URL,
-      url: `api/topics/preFilledLinkShortUrl`,
+      url: `api/topics/preFilledLinkShortUrl/${topicId}`,
       method: 'GET'
     }
   };
