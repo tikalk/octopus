@@ -16,7 +16,9 @@ const getTopicData = {
 };
 
 const getPreFilledLinkShortUrl = {
-  params: {},
+  params: {
+    topicId: Joi.string().required()
+  },
   query: {
     url: Joi.string().required()
   }

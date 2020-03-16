@@ -1,6 +1,4 @@
-const { EMPLOYEE } = require('./constants');
-
-const { HR, LEADER, LIOR, SALES, FINANCE, ALL } = require('./constants');
+const { HR, LEADER, LIOR, SALES, FINANCE, ALL, EMPLOYEE } = require('./constants');
 
 const employees = {
   spreadsheetId: '1c5xPeWDm6JlEtwL-BhM3kVfIbUlNsf61Y4KaFoSlwtU',
@@ -158,7 +156,8 @@ const topics = {
     preFilledLink: {
       url:
         'https://docs.google.com/forms/d/e/1FAIpQLSdGQIgkKGl6E-06r4UHgzWxlZ4P0dWLBDEeIU_-JtytVjnbgg/viewform?entry.784795528={{name}}&entry.2043706299={{group}}&entry.773064783={{me}}',
-      roles: [LEADER]
+      roles: [LEADER],
+      enableShortUrl: false
     },
     sheetId: '2017-2018',
     range: 'A2:Z1000',
@@ -256,7 +255,7 @@ const topics = {
     extend: [
       {
         roles: [HR, LEADER, LIOR, SALES, ALL, EMPLOYEE],
-        title: '2019',
+        title: '2019-2020',
         spreadsheetId: '1rGGQ2qH_Rsf3hc2axVQ0Q4tnRZmYB3ca_oC09qZdg2k',
         sheetId: '2019-2020',
         range: 'A2:Z1000',
@@ -268,74 +267,79 @@ const topics = {
         fields: [
           {
             title: 'שביעות רצון של העובד מהמשימה',
-            index: 7,
+            index: 5,
             grid: 4
           },
           {
             title: 'פירוט',
-            index: 8,
+            index: 6,
             grid: 8
           },
           {
+            title: 'פידבק מהלקוח',
+            index: 7,
+            grid: 12
+          },
+          {
             title: 'שביעות רצון של העובד מההתקדמות המקצועית',
-            index: 10,
+            index: 8,
             grid: 4
           },
           {
             title: 'פירוט',
-            index: 11,
+            index: 9,
             grid: 8
           },
           {
             title: 'ריקאפ על היעדים מהשיחה השנתית',
-            index: 12,
+            index: 10,
             grid: 12
           },
           {
             title: 'שאיפות מקצועיות לטווח הרחוק',
-            index: 13,
+            index: 11,
             grid: 12
           },
           {
             title: 'מה נעשה לעומת היעדים שהוגדרו ברואדמאפ הקודם',
-            index: 14,
+            index: 12,
             grid: 12
           },
           {
             title: 'התפתחות מקצועית - הגדרת מטרות לרבעון והתיחסות למצב נוכחי ביחס למטרות',
-            index: 15,
+            index: 13,
             grid: 6
           },
           {
             title: 'התפתחות מקצועית - הגדרת יעדים',
-            index: 16,
+            index: 14,
             grid: 6
           },
           {
             title: 'התפתחות בינאישית - הגדרת מטרות לרבעון והתיחסות למצב נוכחי ביחס למטרות',
-            index: 17,
+            index: 15,
             grid: 6
           },
           {
             title: 'התפתחות בינאישית - הגדרת יעדים',
-            index: 18,
+            index: 16,
             grid: 6
           },
           {
             title: 'הערות',
-            index: 19,
+            index: 17,
             grid: 12,
             excludeRoles: [EMPLOYEE]
           },
           {
             title: 'שביעות רצון המוביל מהתקדמות מקצועית',
-            index: 20,
+            index: 18,
             grid: 4,
             excludeRoles: [EMPLOYEE]
           },
           {
             title: 'פירוט',
-            index: 21,
+            index: 19,
             grid: 8,
             excludeRoles: [EMPLOYEE]
           }
@@ -350,7 +354,8 @@ const topics = {
     preFilledLink: {
       url:
         'https://docs.google.com/forms/d/e/1FAIpQLSe0qFlr3RIlAJeSKpxOcfDm86nuyDtGbz0PL4mj17LSL2WzkA/viewform?usp=pp_url&entry.454226715={{name}}&entry.816043357={{group}}',
-      roles: [HR, LIOR]
+      roles: [HR, LIOR, HR],
+      enableShortUrl: true
     },
     sheetId: 'Form Responses 1',
     range: 'A2:Z1000',
@@ -367,42 +372,42 @@ const topics = {
       },
       {
         title: 'מידת שביעות רצון',
-        index: 5,
-        grid: 12
-      },
-      {
-        title: 'פירוט',
         index: 6,
         grid: 12
       },
       {
-        title: 'שביעות רצון בהיבט בינאישי',
+        title: 'פירוט',
         index: 7,
-        grid: 6
+        grid: 12
       },
       {
-        title: 'פירוט',
+        title: 'שביעות רצון בהיבט בינאישי',
         index: 8,
         grid: 6
       },
       {
-        title: 'באיזו רמה מרגיש שמתפתח מקצועית',
+        title: 'פירוט',
         index: 9,
         grid: 6
       },
       {
-        title: 'פירוט',
+        title: 'באיזו רמה מרגיש שמתפתח מקצועית',
         index: 10,
         grid: 6
       },
       {
-        title: 'מעוניין להחליף לקוח ?',
+        title: 'פירוט',
         index: 11,
+        grid: 6
+      },
+      {
+        title: 'מעוניין להחליף לקוח ?',
+        index: 12,
         grid: 12
       },
       {
         title: 'הערות - הארות',
-        index: 12,
+        index: 13,
         grid: 12
       }
     ]
@@ -414,7 +419,8 @@ const topics = {
     preFilledLink: {
       url:
         'https://docs.google.com/forms/d/e/1FAIpQLSeqkvqlqI8u3lnvBtsuZJ5BDnZTmaQsHa2TXNOu9MXcD-Ilhw/viewform?usp=pp_url&entry.2120553200={{name}}&entry.1231091577={{group}}',
-      roles: [SALES, HR, LIOR]
+      roles: [SALES, HR, LIOR],
+      enableShortUrl: true
     },
     sheetId: 'Form Responses 1',
     range: 'A2:Z1000',
@@ -494,7 +500,8 @@ const topics = {
     preFilledLink: {
       url:
         'https://docs.google.com/forms/d/e/1FAIpQLSfWhSJlh6_zNeIADF83-0MfKQjp3OyQxriPoqE-xD1j0QKEcw/viewform?usp=pp_url&entry.1716844105={{name}}&entry.1759542796={{group}}&entry.314843341={{leader}}',
-      roles: [HR]
+      roles: [HR],
+      enableShortUrl: false
     },
     sheetId: 'Form responses 1',
     range: 'A2:AI1000',
@@ -557,6 +564,86 @@ const topics = {
       {
         title: 'חוזקות - מקצועי והתנהלות',
         index: 26,
+        grid: 12
+      }
+    ]
+  },
+  'client-feedback-from-meeting': {
+    roles: [HR, LIOR, SALES, LEADER],
+    title: 'משוב פגישת שיבוץ',
+    spreadsheetId: '12dkIBtbjKyz8pR-g2p1NR4lpKbwh0Od1PuzAnT2do4w',
+    preFilledLink: {
+      url:
+        'https://docs.google.com/forms/d/e/1FAIpQLSddwIcEPLG97tD_OP114NnrhG_xrF0TFIdpMdn_3U0_fJvvkg/viewform?usp=pp_url&entry.1393783689={{name}}',
+      roles: [SALES],
+      enableShortUrl: true
+    },
+    sheetId: 'Form Responses 1',
+    range: 'A2:Z1000',
+    employeeIdentifierIndex: 5,
+    sectionTitle: {
+      index: 0
+    },
+    reverseSections: false,
+    fields: [
+      {
+        title: 'שם החברה',
+        index: 2,
+        grid: 12
+      },
+      {
+        title: 'שם המעריך',
+        index: 3,
+        grid: 3
+      },
+      {
+        title: 'תפקיד המעריך',
+        index: 4,
+        grid: 9
+      },
+      {
+        title: 'רמת התאמה למשימה',
+        index: 6,
+        grid: 3
+      },
+      {
+        title: 'הסיבה לחוסר התאמה',
+        index: 7,
+        grid: 9
+      },
+      {
+        title: 'התרשמות מקצועית',
+        index: 8,
+        grid: 3
+      },
+      {
+        title: 'נקודות בולטות',
+        index: 9,
+        grid: 9
+      },
+      {
+        title: 'חוסרים מקצועיים שבלטו',
+        index: 10,
+        grid: 12
+      },
+      {
+        title: 'התרשמות בינאישית',
+        index: 11,
+        grid: 4
+      },
+      {
+        title: 'נקודות בולטות לטובה',
+        index: 12,
+        grid: 4
+      },
+      {
+        title: 'נקודות לשיפור',
+        index: 13,
+        grid: 4
+      },
+      {
+        title: 'הערות',
+        index: 14,
         grid: 12
       }
     ]

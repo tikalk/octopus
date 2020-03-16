@@ -50,6 +50,7 @@ const getTopicData = async (req, res) => {
           userGroup,
           userRole
         });
+
         data = [...data, ...extendData];
       }
     }
@@ -63,9 +64,16 @@ const getTopicData = async (req, res) => {
 
 const getPreFilledLinkShortUrl = async (req, res) => {
   const { url } = req.query;
+  const { topicId } = req.params;
+  const topic = topics[topicId];
+  const shouldShortUrl = _.get(topic, 'preFilledLink.enableShortUrl');
   try {
-    const { url: shortUrl } = await getShortUrl(url);
-    res.json({ url, shortUrl });
+    let data = { url, shortUrl: url };
+    if (shouldShortUrl) {
+      const { url: shortUrl } = await getShortUrl(url);
+      data = { url, shortUrl };
+    }
+    res.json(data);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
