@@ -22,72 +22,79 @@ const topics = {
     },
     fields: [
       {
-        title: 'טלפון',
-        index: 8,
-        grid: 6
+        title: 'רואדמאפ אחרון',
+        index: 7,
+        grid: 12
+      },
+      {
+        title: 'שם באנגלית',
+        index: 0,
+        grid: 4
       },
       {
         title: 'מוביל',
         index: 3,
-        grid: 6
+        grid: 4
       },
       {
-        title: 'לקוחות',
-        index: 17,
-        grid: 12
-      },
-      {
-        title: 'רואדמאפ אחרון',
-        index: 7,
-        grid: 6
+        title: 'טלפון',
+        index: 8,
+        grid: 4
       },
       {
         title: 'פרופיל טכני',
         index: 5,
-        grid: 6
+        grid: 4
       },
       {
         title: 'רמת ניסיון',
         index: 4,
-        grid: 6,
+        grid: 4,
         excludeRoles: [EMPLOYEE]
       },
 
       {
         title: 'רמה טכנית',
         index: 6,
-        grid: 6,
+        grid: 4,
         excludeRoles: [EMPLOYEE]
       },
+
+      {
+        title: 'לקוחות',
+        index: 17,
+        grid: 12
+      },
+
       {
         title: 'זמן בטיקל',
         index: 16,
-        grid: 6
+        grid: 4
       },
       {
         title: 'כתובת',
         index: 11,
-        grid: 6
+        grid: 4
       },
       {
         title: 'יום הולדת',
         index: 13,
-        grid: 6
+        grid: 4
       },
       {
         title: 'סטטוס משפחתי',
         index: 23,
-        grid: 6
+        grid: 4
       },
       {
         title: 'מספר ילדים',
         index: 25,
-        grid: 6
+        grid: 4
       },
       {
         title: 'שם בן / בת הזוג',
         index: 24,
-        grid: 6
+        grid: 4
       }
     ]
   },
@@ -501,15 +508,14 @@ const topics = {
         grid: 6
       },
 
-
-
       {
         title: 'האם נעזרת/תעזר בעתיד בטיקל בבעיות/צרכים בתחומים נוספים?',
         index: 17,
         grid: 6
       },
       {
-        title: 'מהן לדעתך הנקודות לשיפור בהתייחס לשירות שאתה מקבל מטיקל או לחילופין ציפיות שהיו לך מהעבודה מולנו ולא התממשו?',
+        title:
+          'מהן לדעתך הנקודות לשיפור בהתייחס לשירות שאתה מקבל מטיקל או לחילופין ציפיות שהיו לך מהעבודה מולנו ולא התממשו?',
         index: 18,
         grid: 6
       },
@@ -522,7 +528,7 @@ const topics = {
         title: 'הערות / הארות ונושאים נוספים שחשוב לך להעלות לגבי טיקל',
         index: 20,
         grid: 6
-      },
+      }
     ]
   },
   reassignment: {
@@ -676,6 +682,96 @@ const topics = {
       {
         title: 'הערות',
         index: 14,
+        grid: 12
+      }
+    ]
+  },
+  'leader-employee-feedback': {
+    roles: [HR, LIOR, LEADER],
+    title: 'חווד מוביל לקראת שיחה שנתית',
+    spreadsheetId: '17m8Ys67Mi0kj_4O64OCBJS49eYbyIjTjlq3viXaPVx4',
+    preFilledLink: {
+      url:
+        'https://docs.google.com/forms/d/e/1FAIpQLSd6vo3B8IV0Tx8aNFWhKuMkNWj4eANeeKpFIbFst3QLnES-og/viewform?usp=pp_url&entry.338498330={{leader}}&entry.326186356={{name}}&entry.794708840={{group}}',
+      roles: [LEADER],
+      enableShortUrl: false
+    },
+    sheetId: '2019-2020',
+    range: 'A2:Z1000',
+    employeeIdentifierIndex: 2,
+    sectionTitle: {
+      index: 0
+    },
+    reverseSections: false,
+    fields: [
+      {
+        title: 'מעריך',
+        index: 1,
+        grid: 12
+      },
+      {
+        title: 'הרכה מקצועית',
+        index: 4,
+        grid: 3
+      },
+      {
+        title: 'פירוט',
+        index: 5,
+        grid: 6
+      },
+      {
+        title: 'הערכת רמת סיניוריטי',
+        index: 6,
+        grid: 3
+      },
+      {
+        title: 'הערכה בינאישית',
+        index: 7,
+        grid: 3
+      },
+      {
+        title: 'פירוט',
+        index: 8,
+        grid: 9
+      },
+      {
+        title: 'נקודות החוזק העיקריות של העובד',
+        index: 9,
+        grid: 6
+      },
+      {
+        title: 'נקודות לשיפור עליהן צריך העובד לעבוד',
+        index: 10,
+        grid: 6
+      },
+      {
+        title: 'באיזו רמה עומד העובד ביעדים',
+        index: 11,
+        grid: 3
+      },
+      {
+        title: 'פירוט',
+        index: 12,
+        grid: 9
+      },
+      {
+        title: 'תרומה ומיצוב - כמה העובד פעיל ותורם במסגרת הטיקלית',
+        index: 13,
+        grid: 6
+      },
+      {
+        title: 'מהן לדעתך ההישגים המשמעותיים של העובד בשנה האחרונה',
+        index: 14,
+        grid: 6
+      },
+      {
+        title: 'אילו יעדים שנתיים היית ממליץ להציב לעובד במשגרת השיחה השנתית',
+        index: 15,
+        grid: 12
+      },
+      {
+        title: 'הערות',
+        index: 16,
         grid: 12
       }
     ]
