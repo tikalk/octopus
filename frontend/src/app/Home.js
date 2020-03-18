@@ -7,7 +7,7 @@ import { Drawer, CssBaseline } from '@material-ui/core';
 import Header from './Header';
 import EmployeesList from './EmployeesList';
 import TopicView from './TopicView';
-import { getEmployees, employeeSelected } from './../redux/feature/employees/employees.actions';
+import { getEmployees, employeeSelected, userChangedFilter } from './../redux/feature/employees/employees.actions';
 import {
   getTopics,
   topicSelected,
@@ -93,6 +93,7 @@ const Home = () => {
   const formDialogOpen = useSelector(state => state.topics.formDialogOpen);
   const preFilledFormURL = useSelector(state => state.topics.preFilledFormURL);
   const preFilledFormShortURL = useSelector(state => state.topics.preFilledFormShortURL);
+  const filter = useSelector(({ employees: { filter } }) => filter);
   const [width, height] = useSelector(({ ui: { width, height } }) => [width, height]);
 
   useEffect(() => {
@@ -136,6 +137,10 @@ const Home = () => {
 
   const handleFormDialogBackClicked = () => {
     dispatch(setFormDialogState(false));
+  };
+
+  const handleFilterChanged = name => {
+    dispatch(userChangedFilter({ name }));
   };
 
   return (
@@ -189,6 +194,8 @@ const Home = () => {
           selectedEmployee={selectedEmployee}
           selectedTopic={selectedTopic}
           isLoader={employeesLoader}
+          filter={filter}
+          onFilterChange={handleFilterChanged}
         />
       </Drawer>
       <FormDialog

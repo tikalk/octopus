@@ -11,7 +11,8 @@ const EmployeesListSection = props => {
     selectedEmployee,
     selectedTopic,
     onTopicSelected,
-    onEmployeeSelected
+    onEmployeeSelected,
+    filter
   } = props;
 
   const handleSelectedTopic = (topic, employee) => {
@@ -22,9 +23,10 @@ const EmployeesListSection = props => {
     onEmployeeSelected(employee);
   };
 
-  const renderEmployees = ({ employees, search, selectedEmployee, topics, selectedTopic }) =>
+  const renderEmployees = ({ employees, search, selectedEmployee, topics, selectedTopic, filter }) =>
     employees
-      .filter(user => search == '' || user.name.includes(search))
+      .filter(({ name }) => search == '' || name.includes(search))
+      .filter(({ leader }) => filter[leader])
       .map(employee => (
         <EmployeeListItem
           employee={employee}
@@ -45,7 +47,8 @@ const EmployeesListSection = props => {
         search,
         selectedEmployee,
         topics,
-        selectedTopic
+        selectedTopic,
+        filter
       })}
     </div>
   );

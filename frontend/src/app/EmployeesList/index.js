@@ -3,10 +3,12 @@ import { groupBy } from 'lodash';
 import EmployeesListSection from './EmployeesListSection';
 import { CircularProgress, TextField, List, Divider, IconButton } from '@material-ui/core';
 import { Refresh as RefreshIcon } from '@material-ui/icons';
+import Filter from './Filter';
 
 const EmployeesList = props => {
   const [search, setSearch] = useState('');
   const {
+    filter,
     onEmployListRefreshClick,
     onEmployeeSelected,
     onTopicSelected,
@@ -14,15 +16,16 @@ const EmployeesList = props => {
     topics,
     selectedEmployee,
     selectedTopic,
-    isLoader
+    isLoader,
+    onFilterChange
   } = props;
 
   const handleSearchChange = event => {
     setSearch(event.target.value);
   };
 
-  const renderEmployeesDetails = () => {
-    const groups = groupBy(employees, 'group');    
+  const renderEmployeesDetails = filter => {
+    const groups = groupBy(employees, 'group');
     return Object.keys(groups).map(groupName => (
       <EmployeesListSection
         key={groupName}
@@ -34,6 +37,7 @@ const EmployeesList = props => {
         selectedTopic={selectedTopic}
         onEmployeeSelected={onEmployeeSelected}
         onTopicSelected={onTopicSelected}
+        filter={filter}
       />
     ));
   };
@@ -52,8 +56,10 @@ const EmployeesList = props => {
           <IconButton aria-label="Refresh List" onClick={onEmployListRefreshClick}>
             <RefreshIcon />
           </IconButton>
+          <Filter obj={filter} onFilterChange={onFilterChange} />
           <Divider />
-          {renderEmployeesDetails()}
+
+          {renderEmployeesDetails(filter)}
         </List>
       )}
       {isLoader && <CircularProgress size={30} thickness={5} />}

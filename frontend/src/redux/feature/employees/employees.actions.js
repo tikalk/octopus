@@ -65,3 +65,23 @@ export const setMe = me => {
     }
   };
 };
+
+export const userChangedFilter = ({ name }) => {
+  return {
+    type: AT.USER_CHANGED_FILTER,
+    payload: name,
+    meta: {
+      feature: EMPLOYEES
+    }
+  };
+};
+
+export const setFilter = filter => {
+  return {
+    type: AT.SET_FILTER,
+    payload: filter,
+    meta: {
+      feature: EMPLOYEES
+    }
+  };
+};

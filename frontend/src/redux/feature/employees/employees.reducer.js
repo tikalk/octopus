@@ -7,7 +7,8 @@ export const INIT_STATE = {
   employees: [],
   me: {},
   selectedEmployee: {},
-  isError: false
+  isError: false,
+  filter: {}
 };
 
 export default (state = INIT_STATE, action) => {
@@ -29,6 +30,10 @@ export default (state = INIT_STATE, action) => {
 
     case AT.SET_ME:
       return { ...state, me: payload };
+
+    case AT.SET_FILTER:
+      return { ...state, filter: { ...payload } };
+
     default:
       return state;
   }

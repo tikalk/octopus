@@ -11,7 +11,7 @@ const authMiddleware = async ({ action, dispatch, getState }) => {
   switch (type) {
     case AT.LOGOUT_USER:
       {
-        store.clearAll();
+        store.remove('token');
         dispatch([replace('/')]);
       }
       break;
