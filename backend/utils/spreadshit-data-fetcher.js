@@ -4,8 +4,8 @@ const { ALL } = require('../constants');
 const _ = require('lodash');
 
 const _filterDataByEmployee = ({ topic, sheetData, identifiers }) =>
-  sheetData.filter(row =>
-    identifiers.find(identifier => _.trim(identifier) === _.trim(row[topic.employeeIdentifierIndex]))
+  sheetData.filter((row) =>
+    identifiers.find((identifier) => _.trim(identifier) === _.trim(row[topic.employeeIdentifierIndex]))
   );
 
 const getSheetData = async ({ topic, auth, identifiers }) => {
@@ -17,7 +17,7 @@ const getSheetData = async ({ topic, auth, identifiers }) => {
     majorDimension: 'ROWS',
     valueRenderOption: 'FORMATTED_VALUE', // TODO: Update placeholder value.
     dateTimeRenderOption: 'FORMATTED_STRING', // TODO: Update placeholder value.
-    auth: auth
+    auth: auth,
   };
 
   return new Promise((resolve, reject) => {
@@ -26,50 +26,56 @@ const getSheetData = async ({ topic, auth, identifiers }) => {
         return reject(err);
       }
       const {
-        data: { values }
+        data: { values },
       } = response;
       if (values) {
         return resolve(
           identifiers
-            ? _filterDataByEmployee({
-                topic,
-                sheetData: values,
-                identifiers
-              })
-            : values
+            ? [
+                _filterDataByEmployee({
+                  topic,
+                  sheetData: values.slice(1), //without original titles
+                  identifiers,
+                }),
+                values[0],
+              ]
+            : [values.slice(1), values[0]]
         );
       } else {
         //no rows at the spread sheet at all
-        return resolve([]);
+        return resolve([[], []]);
       }
     });
   });
 };
 
-const formatData = ({ sheetData, topic, userGroup, userRole }) => {
+const formatData = ({ sheetData, topic, userGroup, userRole, originalTitles }) => {
   const { fields, sectionTitle } = topic;
-  return sheetData.map(row => {
+  return sheetData.map((row) => {
     const formattedFields = fields.reduce((acc, field) => {
       if (
         (field.roles && !field.roles.includes(userRole)) ||
         (field.excludeRoles && field.excludeRoles.includes(userRole))
-      )
+      ) {
         return acc;
+      }
+
       if (userGroup !== ALL && field.group && !field.group.includes(userGroup)) return;
 
       const { title, grid, index } = field;
-      acc.push({ title, grid, value: row[index] || 'N/A', index });
+      const originalTitle = originalTitles[index];
+      acc.push({ title: title || originalTitle, grid, value: row[index] || 'N/A', index });
       return acc;
     }, []);
 
     return {
       sectionTitle: row[sectionTitle.index],
-      fields: formattedFields
+      fields: formattedFields,
     };
   });
 };
 
 module.exports = {
   getSheetData,
-  formatData
+  formatData,
 };

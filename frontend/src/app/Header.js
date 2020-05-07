@@ -51,4 +51,4 @@ const Header = ({
   </AppBar>
 );
 
-export default withStyles(styles)(Header);
+export default React.memo(withStyles(styles)(Header));

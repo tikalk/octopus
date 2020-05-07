@@ -15,6 +15,7 @@ const employeesMiddleware = async ({ action, dispatch, getState }) => {
       {
         const { selectedEmployee } = getState().employees;
         const { topics } = getState().topics;
+        
         let arr = [];
         if (eq(selectedEmployee, payload)) {
           arr = [setSelectedEmployee({}), setTopicData('')];

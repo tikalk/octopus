@@ -10,7 +10,7 @@ const getEmployees = async (req, res) => {
   const topic = config.employees;
   try {
     const auth = await authorization();
-    const employeesData = await getSheetData({ auth, topic });
+    const [employeesData, originalTitles] = await getSheetData({ auth, topic });
     const { groupIndex, displayNameIndex, identifiersIndex, leaderIndex } = topic;
     const data = employeesData.reduce(
       (acc, employeeArr) => {
@@ -18,14 +18,14 @@ const getEmployees = async (req, res) => {
           group: employeeArr[groupIndex] || '',
           name: employeeArr[displayNameIndex] || '',
           leader: employeeArr[leaderIndex],
-          identifiers: identifiersIndex.map(index => employeeArr[index])
+          identifiers: identifiersIndex.map((index) => employeeArr[index]),
         };
-        const isMe = obj.identifiers.find(identifier => identifier === userEmail);
+        const isMe = obj.identifiers.find((identifier) => identifier === userEmail);
         const isMyGroup = obj.group.toLowerCase() === group.toLowerCase() || group === ALL;
 
         if (isMe || isMyGroup) {
           if (isMe) {
-            acc.me = { ...obj };
+            acc.me = { ...obj, role };
           }
           acc.employees.push(obj);
         }
@@ -44,5 +44,5 @@ const getEmployees = async (req, res) => {
 };
 
 module.exports = {
-  getEmployees
+  getEmployees,
 };

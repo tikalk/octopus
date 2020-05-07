@@ -79,4 +79,4 @@ const TopicView = ({ topicData, topic, employee, loader, onRefreshButtonClick })
   </Grid>
 );
 
-export default TopicView;
+export default React.memo(TopicView);

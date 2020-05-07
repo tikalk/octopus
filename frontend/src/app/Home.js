@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import { replace } from 'lodash';
@@ -13,7 +13,7 @@ import {
   topicSelected,
   refreshTopicClick,
   preFilledFormClicked,
-  setFormDialogState
+  setFormDialogState,
 } from './../redux/feature/topics/topics.actions';
 import { userLogOut } from './../redux/feature/auth/auth.actions';
 import { setLoader } from './../redux/feature/loaders/loaders.actions';
@@ -21,52 +21,52 @@ import FormDialog from './FormDialog';
 
 const drawerWidth = 280;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex'
+    display: 'flex',
   },
   appBar: {},
   appBarSmallScreen: {
-    width: '100%'
+    width: '100%',
   },
   appBarRegularScreen: {
     width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth
+    marginLeft: drawerWidth,
   },
   appBarShift: {
     //marginRight: drawerWidth,
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   hide: {
-    display: 'none'
+    display: 'none',
   },
   drawer: {
-    flexShrink: 0
+    flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
   },
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(3)
+    padding: theme.spacing(3),
   },
   contentRegularScreen: {
     width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth
+    marginLeft: drawerWidth,
   },
   contentSmallScreen: {
     width: '100%',
-    marginLeft: 0
+    marginLeft: 0,
   },
   contentShift: {
     // transition: theme.transitions.create('margin', {
@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
     //   duration: theme.transitions.duration.enteringScreen,
     // }),
     // marginRight: 0,
-  }
+  },
 }));
 
 const Home = () => {
@@ -82,17 +82,19 @@ const Home = () => {
 
   const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
-  const isSmallScreen = useSelector(state => state.ui.isSmallScreen);
-  const employees = useSelector(state => state.employees.employees);
-  const topics = useSelector(state => state.topics.topics);
-  const selectedEmployee = useSelector(state => state.employees.selectedEmployee);
-  const selectedTopic = useSelector(state => state.topics.selectedTopic);
-  const employeesLoader = useSelector(state => state.loaders.employees);
-  const topicLoader = useSelector(state => state.loaders.topic);
-  const topicData = useSelector(state => state.topics.topicData);
-  const formDialogOpen = useSelector(state => state.topics.formDialogOpen);
-  const preFilledFormURL = useSelector(state => state.topics.preFilledFormURL);
-  const preFilledFormShortURL = useSelector(state => state.topics.preFilledFormShortURL);
+  const isSmallScreen = useSelector((state) => state.ui.isSmallScreen);
+  const employees = useSelector((state) => state.employees.employees);
+  const topics = useSelector((state) => state.topics.topics);
+  const selectedEmployee = useSelector((state) => state.employees.selectedEmployee);
+  const selectedTopic = useSelector((state) => state.topics.selectedTopic);
+  const employeesLoader = useSelector((state) => state.loaders.employees);
+  const topicLoader = useSelector((state) => state.loaders.topic);
+  const topicData = useSelector((state) => state.topics.topicData);
+  const formDialogOpen = useSelector((state) => state.topics.formDialogOpen);
+  const preFilledFormURL = useSelector((state) => state.topics.preFilledFormURL);
+  const preFilledFormShortURL = useSelector((state) => state.topics.preFilledFormShortURL);
+  const me = useSelector((state) => state.employees.me);
+
   const filter = useSelector(({ employees: { filter } }) => filter);
   const [width, height] = useSelector(({ ui: { width, height } }) => [width, height]);
 
@@ -101,47 +103,47 @@ const Home = () => {
     dispatch(getTopics({ force: true }));
   }, []);
 
-  const handleDrawerOpen = () => {
+  const handleDrawerOpen = useCallback(() => {
     setMenuOpen(true);
-  };
+  });
 
-  const handleDrawerClose = () => {
+  const handleDrawerClose = useCallback(() => {
     setMenuOpen(false);
-  };
+  });
 
-  const handleEmployListRefreshClick = () => {
+  const handleEmployListRefreshClick = useCallback(() => {
     dispatch(setLoader({ name: 'employees', state: true }));
     dispatch(getEmployees({ force: true }));
-  };
+  });
 
-  const handleEmployeeSelected = employee => {
+  const handleEmployeeSelected = useCallback((employee) => {
     dispatch(employeeSelected(employee));
-  };
+  });
 
-  const handleTopicSelected = (topic, employee) => {
+  const handleTopicSelected = useCallback((topic, employee) => {
     dispatch(topicSelected({ topic, employee: selectedEmployee }));
-  };
+  });
 
-  const handleRefreshTopicClick = () => {
+  const handleRefreshTopicClick = useCallback(() => {
     dispatch(setLoader({ name: 'topic', state: true }));
     dispatch(refreshTopicClick());
-  };
+  });
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     dispatch(userLogOut());
-  };
+  });
 
-  const handlePreFilledFormClicked = () => {
+  const handlePreFilledFormClicked = useCallback(() => {
     dispatch(preFilledFormClicked({ topic: selectedTopic, employee: selectedEmployee }));
-  };
+  });
 
-  const handleFormDialogBackClicked = () => {
+  const handleFormDialogBackClicked = useCallback(() => {
     dispatch(setFormDialogState(false));
-  };
+  });
 
-  const handleFilterChanged = name => {
+  const handleFilterChanged = useCallback((name) => {
     dispatch(userChangedFilter({ name }));
-  };
+  });
 
   return (
     <div className={classes.root}>
@@ -149,7 +151,7 @@ const Home = () => {
       <Header
         className={clsx(classes.appBar, {
           [classes.appBarSmallScreen]: isSmallScreen,
-          [classes.appBarRegularScreen]: !isSmallScreen
+          [classes.appBarRegularScreen]: !isSmallScreen,
         })}
         isSmallScreen={isSmallScreen}
         onMenuButtonClicked={handleDrawerOpen}
@@ -160,7 +162,7 @@ const Home = () => {
       <main
         className={clsx(classes.content, {
           [classes.contentSmallScreen]: isSmallScreen,
-          [classes.contentRegularScreen]: !isSmallScreen
+          [classes.contentRegularScreen]: !isSmallScreen,
         })}
       >
         <div className={classes.drawerHeader} />
@@ -181,7 +183,7 @@ const Home = () => {
         anchor="left"
         open={menuOpen}
         classes={{
-          paper: classes.drawerPaper
+          paper: classes.drawerPaper,
         }}
         onClose={handleDrawerClose}
       >
@@ -196,6 +198,7 @@ const Home = () => {
           isLoader={employeesLoader}
           filter={filter}
           onFilterChange={handleFilterChanged}
+          me={me}
         />
       </Drawer>
       <FormDialog

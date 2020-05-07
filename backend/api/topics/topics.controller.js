@@ -8,7 +8,7 @@ const getTopics = async (req, res) => {
   const { group: userGroup, role: userRole } = req.auth;
   const topicsToReturn = _.keys(topics).reduce((acc, topicId) => {
     const topic = _.get(topics, topicId);
-    const { title } = topic;
+    const { title, onlyOwnLeader = false } = topic;
     const preFilledLinkObj = _.get(topic, 'preFilledLink');
     let preFilledLink = null;
     if (
@@ -23,7 +23,7 @@ const getTopics = async (req, res) => {
     if (preFilledLinkObj && preFilledLinkObj.roles.includes(userRole)) {
       preFilledLink = preFilledLinkObj.url;
     }
-    acc.push({ id: topicId, title, preFilledLink });
+    acc.push({ id: topicId, title, preFilledLink, onlyOwnLeader });
     return acc;
   }, []);
 
@@ -38,17 +38,19 @@ const getTopicData = async (req, res) => {
   try {
     const auth = await authorization();
     const topic = topics[topicId];
-    const sheetData = await getSheetData({ topic, auth, identifiers });
-    let data = formatData({ topic, sheetData, userGroup, userRole });
+    const [sheetData, originalTitles] = await getSheetData({ topic, auth, identifiers });
+    let data = formatData({ topic, sheetData, userGroup, userRole, originalTitles });
 
     if (topic.extend) {
       for (const eTopic of topic.extend) {
-        const extendSheetData = await getSheetData({ topic: eTopic, auth, identifiers });
+        const [extendSheetData, extendedOriginalTitles] = await getSheetData({ topic: eTopic, auth, identifiers });
+
         const extendData = formatData({
           topic: eTopic,
           sheetData: extendSheetData,
           userGroup,
-          userRole
+          userRole,
+          originalTitles: extendedOriginalTitles,
         });
 
         data = [...data, ...extendData];
@@ -83,5 +85,5 @@ const getPreFilledLinkShortUrl = async (req, res) => {
 module.exports = {
   getTopics,
   getTopicData,
-  getPreFilledLinkShortUrl
+  getPreFilledLinkShortUrl,
 };

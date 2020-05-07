@@ -17,7 +17,8 @@ const EmployeesList = props => {
     selectedEmployee,
     selectedTopic,
     isLoader,
-    onFilterChange
+    onFilterChange,
+    me
   } = props;
 
   const handleSearchChange = event => {
@@ -38,6 +39,7 @@ const EmployeesList = props => {
         onEmployeeSelected={onEmployeeSelected}
         onTopicSelected={onTopicSelected}
         filter={filter}
+        me={me}
       />
     ));
   };
@@ -67,4 +69,4 @@ const EmployeesList = props => {
   );
 };
 
-export default EmployeesList;
+export default React.memo(EmployeesList);

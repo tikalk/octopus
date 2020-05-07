@@ -4,19 +4,19 @@ import { Dialog, AppBar, Toolbar, IconButton, Slide, Fab } from '@material-ui/co
 import CloseIcon from '@material-ui/icons/Close';
 import CopyIcon from '@material-ui/icons/FileCopy';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   appBar: {
-    position: 'relative'
+    position: 'relative',
   },
   title: {
     marginLeft: theme.spacing(2),
-    flex: 1
+    flex: 1,
   },
   fab: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   extendedIcon: {
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
   },
   hiddenInput: {
     backgroundColor: 'transparent',
@@ -24,8 +24,8 @@ const useStyles = makeStyles(theme => ({
     border: 'none',
     fontSize: '18px',
     width: '100%',
-    direction: 'ltr'
-  }
+    direction: 'ltr',
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -83,4 +83,4 @@ const FormDialog = ({ open, onBackClicked, preFilledFormURL, preFilledFormShortU
   );
 };
 
-export default FormDialog;
+export default React.memo(FormDialog);

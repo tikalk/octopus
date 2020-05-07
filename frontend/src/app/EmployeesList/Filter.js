@@ -3,7 +3,7 @@ import { FormGroup, FormControlLabel, Checkbox, Grid, IconButton, Typography } f
 import { FilterList } from '@material-ui/icons';
 const Filter = ({ obj, onFilterChange }) => {
   const [showItems, setShowItems] = useState(false);
-  const handleChange = name => {
+  const handleChange = (name) => {
     onFilterChange(name);
   };
 
@@ -11,12 +11,12 @@ const Filter = ({ obj, onFilterChange }) => {
     setShowItems(!showItems);
   };
 
-  const selectedFilterItems = Object.keys(obj).filter(item => obj[item]);
+  const selectedFilterItems = Object.keys(obj).filter((item) => obj[item]);
 
   return (
-    <Grid container spacing={3}>
-      <Grid container zeroMinWidth spacing={2}>
-        <Grid item xs={2} style={{ paddingRight: 16 }}>
+    <div>
+      <Grid container spacing={1}>
+        <Grid item xs={2}>
           <IconButton color="primary" aria-label="show hide filter" component="span" onClick={handleFilterButtonClick}>
             <FilterList />
           </IconButton>
@@ -27,23 +27,22 @@ const Filter = ({ obj, onFilterChange }) => {
           </Typography>
         </Grid>
       </Grid>
+
       {showItems && (
-        <Grid item xs={12} style={{ paddingRight: 20 }}>
-          <FormGroup>
-            {Object.keys(obj).map(name => {
-              const value = obj[name];
-              return (
-                <FormControlLabel
-                  key={name}
-                  control={<Checkbox color={'default'} checked={value} onChange={() => handleChange({ name })} />}
-                  label={name}
-                />
-              );
-            })}
-          </FormGroup>
-        </Grid>
+        <FormGroup style={{ paddingRight: 30 }}>
+          {Object.keys(obj).map((name) => {
+            const value = obj[name];
+            return (
+              <FormControlLabel
+                key={name}
+                control={<Checkbox color={'default'} checked={value} onChange={() => handleChange({ name })} />}
+                label={name}
+              />
+            );
+          })}
+        </FormGroup>
       )}
-    </Grid>
+    </div>
   );
 };
 
