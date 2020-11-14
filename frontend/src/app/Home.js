@@ -1,19 +1,25 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import { replace } from 'lodash';
+import { get } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, CssBaseline } from '@material-ui/core';
 import Header from './Header';
 import EmployeesList from './EmployeesList';
 import TopicView from './TopicView';
-import { getEmployees, employeeSelected, userChangedFilter } from './../redux/feature/employees/employees.actions';
+import {
+  getEmployees,
+  employeeSelected,
+  userChangedFilter,
+  userClearedAllFilters,
+} from './../redux/feature/employees/employees.actions';
 import {
   getTopics,
   topicSelected,
   refreshTopicClick,
   preFilledFormClicked,
   setFormDialogState,
+  editFormButtonClicked,
 } from './../redux/feature/topics/topics.actions';
 import { userLogOut } from './../redux/feature/auth/auth.actions';
 import { setLoader } from './../redux/feature/loaders/loaders.actions';
@@ -94,9 +100,10 @@ const Home = () => {
   const preFilledFormURL = useSelector((state) => state.topics.preFilledFormURL);
   const preFilledFormShortURL = useSelector((state) => state.topics.preFilledFormShortURL);
   const me = useSelector((state) => state.employees.me);
-
   const filter = useSelector(({ employees: { filter } }) => filter);
   const [width, height] = useSelector(({ ui: { width, height } }) => [width, height]);
+
+  const editUrl = useMemo(() => get(topicData, '0.editUrl'), [topicData]);
 
   useEffect(() => {
     dispatch(getEmployees({}));
@@ -137,12 +144,20 @@ const Home = () => {
     dispatch(preFilledFormClicked({ topic: selectedTopic, employee: selectedEmployee }));
   });
 
+  const handleEditFormButtonClicked = useCallback(() => {
+    dispatch(editFormButtonClicked({ editUrl }));
+  });
+
   const handleFormDialogBackClicked = useCallback(() => {
     dispatch(setFormDialogState(false));
   });
 
   const handleFilterChanged = useCallback((name) => {
     dispatch(userChangedFilter({ name }));
+  });
+
+  const handleOnClearAllFilters = useCallback(() => {
+    dispatch(userClearedAllFilters());
   });
 
   return (
@@ -158,6 +173,8 @@ const Home = () => {
         onLogoutClick={handleLogout}
         preFilledLink={selectedTopic.preFilledLink}
         onPreFilledFormClicked={handlePreFilledFormClicked}
+        editUrl={editUrl}
+        onEditFormButtonClicked={handleEditFormButtonClicked}
       />
       <main
         className={clsx(classes.content, {
@@ -198,6 +215,7 @@ const Home = () => {
           isLoader={employeesLoader}
           filter={filter}
           onFilterChange={handleFilterChanged}
+          onClearAllFilters={handleOnClearAllFilters}
           me={me}
         />
       </Drawer>

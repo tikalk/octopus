@@ -15,7 +15,7 @@ const employeesMiddleware = async ({ action, dispatch, getState }) => {
       {
         const { selectedEmployee } = getState().employees;
         const { topics } = getState().topics;
-        
+
         let arr = [];
         if (eq(selectedEmployee, payload)) {
           arr = [setSelectedEmployee({}), setTopicData('')];
@@ -29,7 +29,7 @@ const employeesMiddleware = async ({ action, dispatch, getState }) => {
     case AT.GET_EMPLOYEES.SUCCESS:
       {
         const {
-          data: { employees, me }
+          data: { employees, me },
         } = payload;
         const filter = store.get('filter') || {};
         const leadersObj = employees.reduce((acc, employee) => {
@@ -39,14 +39,14 @@ const employeesMiddleware = async ({ action, dispatch, getState }) => {
         }, {});
 
         //cleaning stored filters for old leaders
-        Object.keys(filter).forEach(leader => {
+        Object.keys(filter).forEach((leader) => {
           if (leadersObj[leader] === undefined) {
             delete filter[leader];
           }
         });
 
         //adding new leaders to filter
-        Object.keys(leadersObj).forEach(leader => {
+        Object.keys(leadersObj).forEach((leader) => {
           if (filter[leader] === undefined) {
             filter[leader] = true;
           }
@@ -56,7 +56,7 @@ const employeesMiddleware = async ({ action, dispatch, getState }) => {
           setLoader({ name: 'employees', state: false }),
           setFilter(filter),
           setEmployees(employees),
-          setMe(me)
+          setMe(me),
         ]);
       }
       break;
@@ -67,19 +67,32 @@ const employeesMiddleware = async ({ action, dispatch, getState }) => {
       }
       break;
 
-    case AT.USER_CHANGED_FILTER: {
-      const filter = getState().employees.filter;
-      const { name } = payload;
-      console.log(filter);
-      if (filter) {
-        filter[name] = !filter[name];
+    case AT.USER_CHANGED_FILTER:
+      {
+        const filter = getState().employees.filter;
+        const { name } = payload;
+        console.log(filter);
+        if (filter) {
+          filter[name] = !filter[name];
+          store.set('filter', filter);
+          dispatch(setFilter(filter));
+        }
+      }
+      break;
+
+    case AT.USER_CLEARED_ALL_FILTERS:
+      {
+        const filter = getState().employees.filter;
+        for (const key in filter) {
+          filter[key] = false;
+        }
         store.set('filter', filter);
         dispatch(setFilter(filter));
       }
-    }
+      break;
   }
 };
 
 export default createMiddleware({
-  feature: EMPLOYEES
+  feature: EMPLOYEES,
 })(employeesMiddleware);

@@ -9,7 +9,7 @@ import {
   setTopics,
   setPreFilledFormURL,
   setFormDialogState,
-  getShortURL
+  getShortURL,
 } from './topics.actions';
 import { setLoader } from '../loaders/loaders.actions';
 import createMiddleware from './../../middleware.helper';
@@ -36,11 +36,11 @@ const topicsMiddleware = async ({ action, dispatch, getState }) => {
       {
         const {
           employees: {
-            selectedEmployee: { identifiers }
+            selectedEmployee: { identifiers },
           },
           topics: {
-            selectedTopic: { id: topicId }
-          }
+            selectedTopic: { id: topicId },
+          },
         } = getState();
         const force = true;
 
@@ -64,6 +64,18 @@ const topicsMiddleware = async ({ action, dispatch, getState }) => {
     case AT.GET_TOPIC_DATA.SUCCESS:
       {
         const { data } = payload;
+        try {
+          data.sort((a, b) => {
+            const [dateA] = a.sectionTitle.split(' ');
+            const [dateB] = b.sectionTitle.split(' ');
+
+            const arrA = dateA.split('/');
+            const arrB = dateB.split('/');
+            return arrB[2] - arrA[2] || arrB[1] - arrA[1] || arrB[0] - arrA[0];
+          });
+        } catch (err) {
+          console.error('cant sort array according to section title ');
+        }
         dispatch([setTopicData(data), setLoader({ name: 'topic', state: false })]);
       }
       break;
@@ -78,7 +90,7 @@ const topicsMiddleware = async ({ action, dispatch, getState }) => {
       {
         const { employee, topic } = payload;
         const {
-          employees: { me }
+          employees: { me },
         } = getState();
         let { preFilledLink, id: topicId } = topic;
         if (preFilledLink) {
@@ -90,16 +102,21 @@ const topicsMiddleware = async ({ action, dispatch, getState }) => {
           dispatch([
             setPreFilledFormURL(preFilledLink),
             setFormDialogState(true),
-            getShortURL({ url: preFilledLink, topicId })
+            getShortURL({ url: preFilledLink, topicId }),
           ]);
         }
       }
       break;
 
+    case AT.EDIT_FORM_BUTTON_CLICKED:
+      const { editUrl } = payload;
+      dispatch([setPreFilledFormURL({ url: editUrl }), setFormDialogState(true)]);
+      break;
+
     case AT.GET_SHORT_URL.SUCCESS:
       {
         const {
-          data: { url, shortUrl }
+          data: { url, shortUrl },
         } = payload;
         dispatch(setPreFilledFormURL({ url, shortUrl }));
       }
@@ -108,5 +125,5 @@ const topicsMiddleware = async ({ action, dispatch, getState }) => {
 };
 
 export default createMiddleware({
-  feature: TOPICS
+  feature: TOPICS,
 })(topicsMiddleware);

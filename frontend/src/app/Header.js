@@ -2,17 +2,17 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { AppBar, IconButton, Toolbar, Typography, Grid } from '@material-ui/core';
 import { ExitToApp as LogoutIcon } from '@material-ui/icons';
-import { Create as CreateIcon } from '@material-ui/icons';
+import { AddCircle as AddIcon, Edit as EditIcon } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const styles = {
   toolbar: {
-    backgroundColor: '#fe885f'
+    backgroundColor: '#fe885f',
   },
   font: {
     color: '#ffffff',
-    marginRight: 20
-  }
+    marginRight: 20,
+  },
 };
 
 const Header = ({
@@ -21,7 +21,9 @@ const Header = ({
   isSmallScreen,
   className,
   onPreFilledFormClicked,
-  preFilledLink
+  preFilledLink,
+  editUrl,
+  onEditFormButtonClicked,
 }) => (
   <AppBar className={className}>
     <Toolbar style={styles.toolbar}>
@@ -36,15 +38,21 @@ const Header = ({
             Octopus - All about Tikal
           </Typography>
         </Grid>
-        <Grid item>
+        <Grid item>          
+          {editUrl && (
+            <IconButton aria-label="Edit" onClick={onEditFormButtonClicked}>
+              <EditIcon />
+            </IconButton>
+          )}
+          {preFilledLink && (
+            <IconButton aria-label="Create" onClick={onPreFilledFormClicked}>
+              <AddIcon />
+            </IconButton>
+          )}
+          |
           <IconButton aria-label="Refresh List" onClick={onLogoutClick}>
             <LogoutIcon />
           </IconButton>
-          {preFilledLink && (
-            <IconButton aria-label="Create" onClick={onPreFilledFormClicked}>
-              <CreateIcon />
-            </IconButton>
-          )}
         </Grid>
       </Grid>
     </Toolbar>

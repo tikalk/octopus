@@ -10,14 +10,13 @@ const _filterDataByEmployee = ({ topic, sheetData, identifiers }) =>
 
 const getSheetData = async ({ topic, auth, identifiers }) => {
   const { spreadsheetId, sheetId, range } = topic;
-  const request = {
-    // The ID of the spreadsheet to retrieve data from.
-    spreadsheetId, // TODO: Update placeholder value.
-    range: `'${sheetId}'!${range}`, // TODO: Update placeholder value.
+  const request = {    
+    spreadsheetId,
+    range: `'${sheetId}'!${range}`,
     majorDimension: 'ROWS',
-    valueRenderOption: 'FORMATTED_VALUE', // TODO: Update placeholder value.
-    dateTimeRenderOption: 'FORMATTED_STRING', // TODO: Update placeholder value.
-    auth: auth,
+    valueRenderOption: 'FORMATTED_VALUE',
+    dateTimeRenderOption: 'FORMATTED_STRING',
+    auth,
   };
 
   return new Promise((resolve, reject) => {
@@ -49,8 +48,19 @@ const getSheetData = async ({ topic, auth, identifiers }) => {
   });
 };
 
+const getEditUrlIndexIfPermitted = ({ topic, userRole }) => {
+  const preFilledLink = _.get(topic, 'preFilledLink') || {};
+  const { editUrlIndex } = preFilledLink;
+  if (editUrlIndex && preFilledLink.roles.includes(userRole)) {
+    return editUrlIndex;
+  }
+  return null;
+};
+
 const formatData = ({ sheetData, topic, userGroup, userRole, originalTitles }) => {
   const { fields, sectionTitle } = topic;
+  const editUrlIndex = getEditUrlIndexIfPermitted({ topic, userRole });
+
   return sheetData.map((row) => {
     const formattedFields = fields.reduce((acc, field) => {
       if (
@@ -71,6 +81,7 @@ const formatData = ({ sheetData, topic, userGroup, userRole, originalTitles }) =
     return {
       sectionTitle: row[sectionTitle.index],
       fields: formattedFields,
+      editUrl: editUrlIndex ? row[editUrlIndex] : null,
     };
   });
 };

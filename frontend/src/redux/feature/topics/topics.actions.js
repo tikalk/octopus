@@ -120,6 +120,16 @@ export const preFilledFormClicked = ({ topic, employee }) => {
   };
 };
 
+export const editFormButtonClicked = ({ editUrl }) => {
+  return {
+    type: AT.EDIT_FORM_BUTTON_CLICKED,
+    payload: { editUrl },
+    meta: {
+      feature: TOPICS
+    }
+  };
+};
+
 export const setFormDialogState = state => {
   return {
     type: AT.SET_FORM_DIALOG_STATE,

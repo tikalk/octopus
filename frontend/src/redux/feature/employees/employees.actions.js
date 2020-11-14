@@ -11,58 +11,58 @@ export const getEmployees = ({ force = false }) => {
       sourceAction: AT.GET_EMPLOYEES,
       url: 'api/employees',
       method: 'GET',
-      force
-    }
+      force,
+    },
   };
 };
 
-export const employeeSelected = employee => {
+export const employeeSelected = (employee) => {
   return {
     type: AT.EMPLOYEE_SELECTED,
     payload: employee,
     meta: {
-      feature: EMPLOYEES
-    }
+      feature: EMPLOYEES,
+    },
   };
 };
 
-export const setSelectedEmployee = employee => {
+export const setSelectedEmployee = (employee) => {
   return {
     type: AT.SET_SELECTED_EMPLOYEE,
     payload: employee,
     meta: {
-      feature: EMPLOYEES
-    }
+      feature: EMPLOYEES,
+    },
   };
 };
 
-export const setEmployees = employees => {
+export const setEmployees = (employees) => {
   return {
     type: AT.SET_EMPLOYEES,
     payload: employees,
     meta: {
-      feature: EMPLOYEES
-    }
+      feature: EMPLOYEES,
+    },
   };
 };
 
-export const setError = state => {
+export const setError = (state) => {
   return {
     type: AT.SET_ERROR,
     payload: state,
     meta: {
-      feature: EMPLOYEES
-    }
+      feature: EMPLOYEES,
+    },
   };
 };
 
-export const setMe = me => {
+export const setMe = (me) => {
   return {
     type: AT.SET_ME,
     payload: me,
     meta: {
-      feature: EMPLOYEES
-    }
+      feature: EMPLOYEES,
+    },
   };
 };
 
@@ -71,17 +71,27 @@ export const userChangedFilter = ({ name }) => {
     type: AT.USER_CHANGED_FILTER,
     payload: name,
     meta: {
-      feature: EMPLOYEES
-    }
+      feature: EMPLOYEES,
+    },
   };
 };
 
-export const setFilter = filter => {
+export const userClearedAllFilters = () => {
+  return {
+    type: AT.USER_CLEARED_ALL_FILTERS,
+    payload: {},
+    meta: {
+      feature: EMPLOYEES,
+    },
+  };
+};
+
+export const setFilter = (filter) => {
   return {
     type: AT.SET_FILTER,
     payload: filter,
     meta: {
-      feature: EMPLOYEES
-    }
+      feature: EMPLOYEES,
+    },
   };
 };

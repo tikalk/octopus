@@ -41,7 +41,7 @@ const TopicView = ({ topicData, topic, employee, loader, onRefreshButtonClick })
         </Grid>
       )}
       {!loader &&
-        topicData.reverse().map((section, index) => {
+        topicData.map((section, index) => {
           return (
             section && (
               <Grid item key={`${section.sectionTitle}_${index}`}>

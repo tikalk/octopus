@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { FormGroup, FormControlLabel, Checkbox, Grid, IconButton, Typography } from '@material-ui/core';
+import { FormGroup, FormControlLabel, Checkbox, Grid, IconButton, Typography,Button } from '@material-ui/core';
 import { FilterList } from '@material-ui/icons';
-const Filter = ({ obj, onFilterChange }) => {
+const Filter = ({ obj, onFilterChange, onClearAllFilters }) => {
   const [showItems, setShowItems] = useState(false);
+
   const handleChange = (name) => {
     onFilterChange(name);
   };
 
   const handleFilterButtonClick = () => {
     setShowItems(!showItems);
+  };
+  const handleClearAllButton = () => {
+    onClearAllFilters();
   };
 
   const selectedFilterItems = Object.keys(obj).filter((item) => obj[item]);
@@ -30,6 +34,13 @@ const Filter = ({ obj, onFilterChange }) => {
 
       {showItems && (
         <FormGroup style={{ paddingRight: 30 }}>
+          <FormControlLabel
+            control={
+              <Button color="primary" onClick={handleClearAllButton}>
+                נקה הכל
+              </Button>
+            }
+          />
           {Object.keys(obj).map((name) => {
             const value = obj[name];
             return (

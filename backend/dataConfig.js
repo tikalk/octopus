@@ -106,6 +106,7 @@ const topics = {
       url:
         'https://docs.google.com/forms/d/e/1FAIpQLSeeKfgf7OQwB21aH_twIpM9YOKImZ_RDBuDoNnNDhblOsTZGg/viewform?usp=pp_url&entry.2055705415={{name}}&entry.919242336={{group}}&entry.327553390={{me}}',
       roles: [LEADER, HR, SALES, LIOR],
+      editUrlIndex: 5,
     },
     sheetId: 'Form Responses 1',
     range: 'A1:Z1000',
@@ -135,6 +136,7 @@ const topics = {
       url:
         'https://docs.google.com/forms/d/e/1FAIpQLSd3pkWEFZUiv61MiW67Uv9LQmaPepgNOG81smJRRPaLyduXTA/viewform?usp=pp_url&entry.327553390={{me}}&entry.2055705415={{name}}&entry.919242336={{group}}',
       roles: [HR, LIOR],
+      editUrlIndex: 5,
     },
     sheetId: 'Form Responses 1',
     range: 'A1:Z1000',
@@ -164,7 +166,8 @@ const topics = {
       url:
         'https://docs.google.com/forms/d/e/1FAIpQLSdGQIgkKGl6E-06r4UHgzWxlZ4P0dWLBDEeIU_-JtytVjnbgg/viewform?entry.784795528={{name}}&entry.2043706299={{group}}&entry.773064783={{me}}',
       roles: [LEADER],
-      enableShortUrl: false,
+      enableShortUrl: true,
+      editUrlIndex: 30,
     },
     sheetId: '2017-2018',
     range: 'A1:Z1000',
@@ -175,14 +178,34 @@ const topics = {
     reverseSections: true,
     fields: [
       {
+        title: 'מוביל מבצע הרואדמאפ',
+        index: 2,
+        grid: 12,
+      },
+      {
+        title: 'מוביל מבצע הרואדמאפ:',
+        index: 2,
+        grid: 12,
+      },
+      {
         title: 'שביעות רצון של העובד מהמשימה',
-        index: 7,
+        index: 5,
         grid: 4,
       },
       {
         title: 'פירוט',
-        index: 8,
+        index: 6,
         grid: 8,
+      },
+      {
+        title: 'שביעות רצון העובד מהמעורבות בטיקל',
+        index: 8,
+        grid: 4,
+      },
+      {
+        title: 'פירוט',
+        index: 10,
+        grid: 4,
       },
       {
         title: 'שביעות רצון של העובד מההתקדמות המקצועית',
@@ -265,13 +288,18 @@ const topics = {
         title: '2019-2020',
         spreadsheetId: '1rGGQ2qH_Rsf3hc2axVQ0Q4tnRZmYB3ca_oC09qZdg2k',
         sheetId: '2019-2020',
-        range: 'A1:Z1000',
+        range: 'A1:BZ1000',
         employeeIdentifierIndex: 3,
         sectionTitle: {
           index: 0,
         },
         reverseSections: true,
         fields: [
+          {
+            title: 'מוביל מבצע הרואדמאפ',
+            index: 2,
+            grid: 12,
+          },
           {
             title: 'שביעות רצון של העובד מהמשימה',
             index: 5,
@@ -283,12 +311,13 @@ const topics = {
             grid: 8,
           },
           {
-            title: 'פידבק מהלקוח',
+            title: 'פידבק מלקוח ותגובת העובד לפידבק',
             index: 7,
             grid: 12,
           },
+
           {
-            title: 'שביעות רצון של העובד מההתקדמות המקצועית',
+            title: 'שביעות רצון העובד מהמעורבות שלו בטיקל',
             index: 8,
             grid: 4,
           },
@@ -297,56 +326,67 @@ const topics = {
             index: 9,
             grid: 8,
           },
+
+          {
+            title: 'שביעות רצון של העובד מההתקדמות המקצועית',
+            index: 10,
+            grid: 4,
+          },
+          {
+            title: 'פירוט',
+            index: 11,
+            grid: 8,
+          },
           {
             title: 'ריקאפ על היעדים מהשיחה השנתית',
-            index: 10,
-            grid: 12,
-          },
-          {
-            title: 'שאיפות מקצועיות לטווח הרחוק',
-            index: 11,
-            grid: 12,
-          },
-          {
-            title: 'מה נעשה לעומת היעדים שהוגדרו ברואדמאפ הקודם',
             index: 12,
             grid: 12,
           },
           {
-            title: 'התפתחות מקצועית - הגדרת מטרות לרבעון והתיחסות למצב נוכחי ביחס למטרות',
+            title: 'שאיפות מקצועיות לטווח הרחוק',
             index: 13,
-            grid: 6,
+            grid: 12,
           },
           {
-            title: 'התפתחות מקצועית - הגדרת יעדים',
+            title: 'מה נעשה לעומת היעדים שהוגדרו ברואדמאפ הקודם',
             index: 14,
-            grid: 6,
+            grid: 12,
           },
           {
-            title: 'התפתחות בינאישית - הגדרת מטרות לרבעון והתיחסות למצב נוכחי ביחס למטרות',
+            title: 'התפתחות מקצועית - הגדרת מטרות לרבעון והתיחסות למצב נוכחי ביחס למטרות',
             index: 15,
             grid: 6,
           },
           {
-            title: 'התפתחות בינאישית - הגדרת יעדים',
+            title: 'התפתחות מקצועית - הגדרת יעדים',
             index: 16,
             grid: 6,
           },
           {
-            title: 'הערות',
+            title: 'התפתחות בינאישית - הגדרת מטרות לרבעון והתיחסות למצב נוכחי ביחס למטרות',
             index: 17,
+            grid: 6,
+          },
+          {
+            title: 'התפתחות בינאישית - הגדרת יעדים',
+            index: 18,
+            grid: 6,
+          },
+          {
+            title: 'הערות',
+            index: 19,
             grid: 12,
             excludeRoles: [EMPLOYEE],
           },
           {
             title: 'שביעות רצון המוביל מהתקדמות מקצועית',
-            index: 18,
+            index: 20,
             grid: 4,
             excludeRoles: [EMPLOYEE],
           },
           {
             title: 'פירוט',
-            index: 19,
+            index: 21,
             grid: 8,
             excludeRoles: [EMPLOYEE],
           },
@@ -428,6 +468,7 @@ const topics = {
         'https://docs.google.com/forms/d/e/1FAIpQLSeqkvqlqI8u3lnvBtsuZJ5BDnZTmaQsHa2TXNOu9MXcD-Ilhw/viewform?usp=pp_url&entry.2120553200={{name}}&entry.1231091577={{group}}',
       roles: [SALES, HR, LIOR],
       enableShortUrl: true,
+      editUrlIndex: 23,
     },
     sheetId: 'Form Responses 1',
     range: 'A1:Z1000',
@@ -540,6 +581,7 @@ const topics = {
         'https://docs.google.com/forms/d/e/1FAIpQLSfWhSJlh6_zNeIADF83-0MfKQjp3OyQxriPoqE-xD1j0QKEcw/viewform?usp=pp_url&entry.1716844105={{name}}&entry.1759542796={{group}}&entry.314843341={{leader}}',
       roles: [HR],
       enableShortUrl: false,
+      editUrlIndex: 33,
     },
     sheetId: 'Form responses 1',
     range: 'A1:AI1000',
@@ -615,6 +657,7 @@ const topics = {
         'https://docs.google.com/forms/d/e/1FAIpQLSddwIcEPLG97tD_OP114NnrhG_xrF0TFIdpMdn_3U0_fJvvkg/viewform?usp=pp_url&entry.1393783689={{name}}',
       roles: [SALES],
       enableShortUrl: true,
+      editUrlIndex: 18,
     },
     sheetId: 'Form Responses 1',
     range: 'A1:Z1000',
@@ -695,6 +738,7 @@ const topics = {
         'https://docs.google.com/forms/d/e/1FAIpQLSd6vo3B8IV0Tx8aNFWhKuMkNWj4eANeeKpFIbFst3QLnES-og/viewform?usp=pp_url&entry.338498330={{leader}}&entry.326186356={{name}}&entry.794708840={{group}}',
       roles: [LEADER],
       enableShortUrl: false,
+      editUrlIndex: 23,
     },
     sheetId: '2019-2020',
     range: 'A1:Z1000',
@@ -786,6 +830,7 @@ const topics = {
         'https://docs.google.com/forms/d/e/1FAIpQLSd8PVxSkPxJm6O-XPgpH4P86tdr63hjGhyHH4iw9JAiEd5uVg/viewform?usp=pp_url&entry.877733556={{name}}&entry.352710070={{group}}',
       roles: [LIOR],
       enableShortUrl: false,
+      editUrlIndex: 34,
     },
     sheetId: '2019',
     range: 'A2:AE1000',

@@ -5,7 +5,7 @@ import { CircularProgress, TextField, List, Divider, IconButton } from '@materia
 import { Refresh as RefreshIcon } from '@material-ui/icons';
 import Filter from './Filter';
 
-const EmployeesList = props => {
+const EmployeesList = (props) => {
   const [search, setSearch] = useState('');
   const {
     filter,
@@ -18,16 +18,17 @@ const EmployeesList = props => {
     selectedTopic,
     isLoader,
     onFilterChange,
-    me
+    onClearAllFilters,
+    me,
   } = props;
 
-  const handleSearchChange = event => {
+  const handleSearchChange = (event) => {
     setSearch(event.target.value);
   };
 
-  const renderEmployeesDetails = filter => {
+  const renderEmployeesDetails = (filter) => {
     const groups = groupBy(employees, 'group');
-    return Object.keys(groups).map(groupName => (
+    return Object.keys(groups).map((groupName) => (
       <EmployeesListSection
         key={groupName}
         title={groupName}
@@ -58,7 +59,7 @@ const EmployeesList = props => {
           <IconButton aria-label="Refresh List" onClick={onEmployListRefreshClick}>
             <RefreshIcon />
           </IconButton>
-          <Filter obj={filter} onFilterChange={onFilterChange} />
+          <Filter obj={filter} onFilterChange={onFilterChange} onClearAllFilters={onClearAllFilters} />
           <Divider />
 
           {renderEmployeesDetails(filter)}

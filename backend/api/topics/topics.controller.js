@@ -23,6 +23,7 @@ const getTopics = async (req, res) => {
     if (preFilledLinkObj && preFilledLinkObj.roles.includes(userRole)) {
       preFilledLink = preFilledLinkObj.url;
     }
+
     acc.push({ id: topicId, title, preFilledLink, onlyOwnLeader });
     return acc;
   }, []);
@@ -40,13 +41,13 @@ const getTopicData = async (req, res) => {
     const topic = topics[topicId];
     const [sheetData, originalTitles] = await getSheetData({ topic, auth, identifiers });
     let data = formatData({ topic, sheetData, userGroup, userRole, originalTitles });
-
+    const { preFilledLink } = topic;
     if (topic.extend) {
       for (const eTopic of topic.extend) {
         const [extendSheetData, extendedOriginalTitles] = await getSheetData({ topic: eTopic, auth, identifiers });
 
         const extendData = formatData({
-          topic: eTopic,
+          topic: { ...eTopic, preFilledLink },
           sheetData: extendSheetData,
           userGroup,
           userRole,
@@ -68,7 +69,10 @@ const getPreFilledLinkShortUrl = async (req, res) => {
   const { url } = req.query;
   const { topicId } = req.params;
   const topic = topics[topicId];
+  const { preFilledLink, editUrl } = topic;
+
   const shouldShortUrl = _.get(topic, 'preFilledLink.enableShortUrl');
+
   try {
     let data = { url, shortUrl: url };
     if (shouldShortUrl) {
