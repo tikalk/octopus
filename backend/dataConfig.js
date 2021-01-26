@@ -109,7 +109,7 @@ const topics = {
       editUrlIndex: 5,
     },
     sheetId: 'Form Responses 1',
-    range: 'A1:Z1000',
+    range: 'A1:Z9000',
     employeeIdentifierIndex: 2,
     sectionTitle: {
       index: 0,
@@ -139,7 +139,7 @@ const topics = {
       editUrlIndex: 5,
     },
     sheetId: 'Form Responses 1',
-    range: 'A1:Z1000',
+    range: 'A1:Z9000',
     employeeIdentifierIndex: 2,
     sectionTitle: {
       index: 0,
@@ -170,18 +170,13 @@ const topics = {
       editUrlIndex: 30,
     },
     sheetId: '2017-2018',
-    range: 'A1:Z1000',
+    range: 'A1:Z9000',
     employeeIdentifierIndex: 3,
     sectionTitle: {
       index: 0,
     },
     reverseSections: true,
-    fields: [
-      {
-        title: 'מוביל מבצע הרואדמאפ',
-        index: 2,
-        grid: 12,
-      },
+    fields: [      
       {
         title: 'מוביל מבצע הרואדמאפ:',
         index: 2,
@@ -191,31 +186,37 @@ const topics = {
         title: 'שביעות רצון של העובד מהמשימה',
         index: 5,
         grid: 4,
+        excludeRoles: [EMPLOYEE],
       },
       {
         title: 'פירוט',
         index: 6,
         grid: 8,
+        excludeRoles: [EMPLOYEE],
       },
       {
         title: 'שביעות רצון העובד מהמעורבות בטיקל',
         index: 8,
         grid: 4,
+        excludeRoles: [EMPLOYEE],
       },
       {
         title: 'פירוט',
         index: 10,
         grid: 4,
+        excludeRoles: [EMPLOYEE],
       },
       {
         title: 'שביעות רצון של העובד מההתקדמות המקצועית',
         index: 9,
         grid: 4,
+        excludeRoles: [EMPLOYEE],
       },
       {
         title: 'פירוט',
         index: 10,
         grid: 4,
+        excludeRoles: [EMPLOYEE],
       },
       {
         title: 'שאיפות מקצועיות',
@@ -226,16 +227,19 @@ const topics = {
         title: 'מטרות אליהן שואף העובד להגיע',
         index: 12,
         grid: 12,
+        excludeRoles: [EMPLOYEE],
       },
       {
         title: 'איפה נמצא העובד ביחס למטרות שהוגדרו בשיחה הקודמת וביחס למטרות הנוכחיות',
         index: 13,
         grid: 12,
+        excludeRoles: [EMPLOYEE],
       },
       {
         title: 'אילו אפשרויות עומדות בפני העובד להשיג את המטרות',
         index: 14,
         grid: 12,
+        excludeRoles: [EMPLOYEE],
       },
       {
         title: 'התפתחות במסלול מומחיות',
@@ -304,53 +308,62 @@ const topics = {
             title: 'שביעות רצון של העובד מהמשימה',
             index: 5,
             grid: 4,
+            excludeRoles: [EMPLOYEE],
           },
           {
             title: 'פירוט',
             index: 6,
             grid: 8,
+            excludeRoles: [EMPLOYEE],
           },
           {
             title: 'פידבק מלקוח ותגובת העובד לפידבק',
             index: 7,
             grid: 12,
+            excludeRoles: [EMPLOYEE],
           },
 
           {
             title: 'שביעות רצון העובד מהמעורבות שלו בטיקל',
             index: 8,
             grid: 4,
+            excludeRoles: [EMPLOYEE],
           },
           {
             title: 'פירוט',
             index: 9,
             grid: 8,
+            excludeRoles: [EMPLOYEE],
           },
 
           {
             title: 'שביעות רצון של העובד מההתקדמות המקצועית',
             index: 10,
             grid: 4,
+            excludeRoles: [EMPLOYEE],
           },
           {
             title: 'פירוט',
             index: 11,
             grid: 8,
+            excludeRoles: [EMPLOYEE],
           },
           {
             title: 'ריקאפ על היעדים מהשיחה השנתית',
             index: 12,
             grid: 12,
+            excludeRoles: [EMPLOYEE],
           },
           {
             title: 'שאיפות מקצועיות לטווח הרחוק',
             index: 13,
-            grid: 12,
+            grid: 12,            
           },
           {
             title: 'מה נעשה לעומת היעדים שהוגדרו ברואדמאפ הקודם',
             index: 14,
             grid: 12,
+            excludeRoles: [EMPLOYEE],
           },
           {
             title: 'התפתחות מקצועית - הגדרת מטרות לרבעון והתיחסות למצב נוכחי ביחס למטרות',
@@ -405,7 +418,7 @@ const topics = {
       enableShortUrl: true,
     },
     sheetId: 'Form Responses 1',
-    range: 'A1:Z1000',
+    range: 'A1:Z9000',
     employeeIdentifierIndex: 1,
     sectionTitle: {
       index: 0,
@@ -471,7 +484,7 @@ const topics = {
       editUrlIndex: 23,
     },
     sheetId: 'Form Responses 1',
-    range: 'A1:Z1000',
+    range: 'A1:Z9000',
     employeeIdentifierIndex: 3,
     sectionTitle: {
       index: 0,
@@ -584,7 +597,7 @@ const topics = {
       editUrlIndex: 33,
     },
     sheetId: 'Form responses 1',
-    range: 'A1:AI1000',
+    range: 'A1:AI9000',
     employeeIdentifierIndex: 2,
     sectionTitle: {
       index: 0,
@@ -660,7 +673,7 @@ const topics = {
       editUrlIndex: 18,
     },
     sheetId: 'Form Responses 1',
-    range: 'A1:Z1000',
+    range: 'A1:Z9000',
     employeeIdentifierIndex: 5,
     sectionTitle: {
       index: 0,
@@ -741,7 +754,7 @@ const topics = {
       editUrlIndex: 23,
     },
     sheetId: '2019-2020',
-    range: 'A1:Z1000',
+    range: 'A1:Z9000',
     employeeIdentifierIndex: 2,
     sectionTitle: {
       index: 0,
@@ -833,7 +846,7 @@ const topics = {
       editUrlIndex: 34,
     },
     sheetId: '2019',
-    range: 'A2:AE1000',
+    range: 'A2:AE9000',
     employeeIdentifierIndex: 3,
     sectionTitle: {
       index: 0,
