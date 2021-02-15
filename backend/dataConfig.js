@@ -10,6 +10,192 @@ const employees = {
   identifiersIndex: [0, 1, 9],
 };
 
+const annualMeeting = {
+  roles: [HR, LIOR, LEADER],
+  title: 'שיחה שנתית',
+  spreadsheetId: '1LjB42Vr8bGWEcDcNBEc3PuSEcc8oF7jfh7yJt2hpCAA',
+  range: 'A1:AN1000',
+  employeeIdentifierIndex: 2,
+  sectionTitle: {
+    index: 0,
+  },
+  reverseSections: false,
+  fields: [
+    {
+      _title: 'ממוצע 3 המדדים',
+      index: 4,
+      grid: 6,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'רמת סניוריטי',
+      index: 5,
+      grid: 6,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'הצלחות',
+      index: 6,
+      grid: 12,
+    },
+    {
+      _title: 'האם יצר אימפקט',
+      index: 7,
+      grid: 12,
+    },
+    {
+      _title: 'נקודות חוזק',
+      index: 8,
+      grid: 6,
+    },
+    {
+      _title: 'נקודות לשיפור',
+      index: 9,
+      grid: 6,
+    },
+    {
+      _title: 'תגובת העובד',
+      index: 10,
+      grid: 12,
+    },
+    {
+      _title: 'עמידה ביעדין ואיפה העובד נמצא ביחס ליעדים',
+      index: 31,
+      grid: 12,
+    },
+    {
+      _title: 'הצעה ליעדים',
+      index: 32,
+      grid: 12,
+    },
+    {
+      _title: 'יעדים שיוגדרו במשותף לשנה הבאה',
+      index: 33,
+      grid: 12,
+    },
+    {
+      _title: 'רמה מקצועית',
+      index: 11,
+      grid: 4,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'רמת התקדמות מקצועית',
+      index: 12,
+      grid: 4,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'רמת התקדמות ביעדי הרואדמאפ',
+      index: 13,
+      grid: 4,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'רמת חווית המאטש',
+      index: 14,
+      grid: 4,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'רמת חווית לקוח',
+      index: 15,
+      grid: 4,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'שירותיות',
+      index: 16,
+      grid: 4,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'ממוצע מקצועי',
+      index: 17,
+      grid: 12,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'תקשורתיות',
+      index: 18,
+      grid: 3,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'גמישות',
+      index: 19,
+      grid: 3,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'תשוקה טכנולוגית',
+      index: 20,
+      grid: 3,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'מחוייבות, אחריות',
+      index: 21,
+      grid: 3,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'מוטיבציה',
+      index: 22,
+      grid: 3,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'עצמאות',
+      index: 23,
+      grid: 3,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'יכולת פתרון בעיות',
+      index: 24,
+      grid: 3,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'יכולות הובלה',
+      index: 25,
+      grid: 3,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'ממוצע בינאישי',
+      index: 26,
+      grid: 12,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'מידת השתתפות בשגרה הטיקלית',
+      index: 27,
+      grid: 4,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'מידת המעורבות והתרומה',
+      index: 28,
+      grid: 4,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'רמת שייכות טיקלית',
+      index: 29,
+      grid: 4,
+      excludeRoles: [LEADER],
+    },
+    {
+      _title: 'ממוצע טיקל',
+      index: 30,
+      grid: 12,
+      excludeRoles: [LEADER],
+    },
+  ],
+};
+
 const topics = {
   general: {
     title: 'כללי',
@@ -176,7 +362,7 @@ const topics = {
       index: 0,
     },
     reverseSections: true,
-    fields: [      
+    fields: [
       {
         title: 'מוביל מבצע הרואדמאפ:',
         index: 2,
@@ -357,7 +543,7 @@ const topics = {
           {
             title: 'שאיפות מקצועיות לטווח הרחוק',
             index: 13,
-            grid: 12,            
+            grid: 12,
           },
           {
             title: 'מה נעשה לעומת היעדים שהוגדרו ברואדמאפ הקודם',
@@ -400,6 +586,18 @@ const topics = {
           {
             title: 'פירוט',
             index: 21,
+            grid: 8,
+            excludeRoles: [EMPLOYEE],
+          },
+          {
+            title: 'באיזו רמה מעורב העובד בעשייה הטיקלית',
+            index: 22,
+            grid: 4,
+            excludeRoles: [EMPLOYEE],
+          },
+          {
+            title: 'פירוט',
+            index: 23,
             grid: 8,
             excludeRoles: [EMPLOYEE],
           },
@@ -1006,190 +1204,12 @@ const topics = {
     ],
     extend: [
       {
-        roles: [HR, LIOR, LEADER],
-        title: 'שיחה שנתית',
-        spreadsheetId: '1LjB42Vr8bGWEcDcNBEc3PuSEcc8oF7jfh7yJt2hpCAA',
         sheetId: '2020',
-        range: 'A1:AN1000',
-        employeeIdentifierIndex: 2,
-        sectionTitle: {
-          index: 0,
-        },
-        reverseSections: false,
-        fields: [
-          {
-            _title: 'ממוצע 3 המדדים',
-            index: 4,
-            grid: 6,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'רמת סניוריטי',
-            index: 5,
-            grid: 6,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'הצלחות',
-            index: 6,
-            grid: 12,
-          },
-          {
-            _title: 'האם יצר אימפקט',
-            index: 7,
-            grid: 12,
-          },
-          {
-            _title: 'נקודות חוזק',
-            index: 8,
-            grid: 6,
-          },
-          {
-            _title: 'נקודות לשיפור',
-            index: 9,
-            grid: 6,
-          },
-          {
-            _title: 'תגובת העובד',
-            index: 10,
-            grid: 12,
-          },
-          {
-            _title: 'עמידה ביעדין ואיפה העובד נמצא ביחס ליעדים',
-            index: 31,
-            grid: 12,
-          },
-          {
-            _title: 'הצעה ליעדים',
-            index: 32,
-            grid: 12,
-          },
-          {
-            _title: 'יעדים שיוגדרו במשותף לשנה הבאה',
-            index: 33,
-            grid: 12,
-          },
-          {
-            _title: 'רמה מקצועית',
-            index: 11,
-            grid: 4,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'רמת התקדמות מקצועית',
-            index: 12,
-            grid: 4,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'רמת התקדמות ביעדי הרואדמאפ',
-            index: 13,
-            grid: 4,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'רמת חווית המאטש',
-            index: 14,
-            grid: 4,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'רמת חווית לקוח',
-            index: 15,
-            grid: 4,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'שירותיות',
-            index: 16,
-            grid: 4,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'ממוצע מקצועי',
-            index: 17,
-            grid: 12,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'תקשורתיות',
-            index: 18,
-            grid: 3,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'גמישות',
-            index: 19,
-            grid: 3,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'תשוקה טכנולוגית',
-            index: 20,
-            grid: 3,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'מחוייבות, אחריות',
-            index: 21,
-            grid: 3,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'מוטיבציה',
-            index: 22,
-            grid: 3,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'עצמאות',
-            index: 23,
-            grid: 3,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'יכולת פתרון בעיות',
-            index: 24,
-            grid: 3,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'יכולות הובלה',
-            index: 25,
-            grid: 3,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'ממוצע בינאישי',
-            index: 26,
-            grid: 12,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'מידת השתתפות בשגרה הטיקלית',
-            index: 27,
-            grid: 4,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'מידת המעורבות והתרומה',
-            index: 28,
-            grid: 4,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'רמת שייכות טיקלית',
-            index: 29,
-            grid: 4,
-            excludeRoles: [LEADER],
-          },
-          {
-            _title: 'ממוצע טיקל',
-            index: 30,
-            grid: 12,
-            excludeRoles: [LEADER],
-          },
-        ],
+        ...annualMeeting,
+      },
+      {
+        sheetId: '2021',
+        ...annualMeeting,
       },
     ],
   },
